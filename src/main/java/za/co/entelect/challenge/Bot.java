@@ -65,7 +65,7 @@ public class Bot {
 
         boolean diagonalChosen = false;
 
-        Cell chosenCell = surroundingBlocks.get(0);
+        Cell chosenCell = chooseCell(surroundingBlocks, closestEnemy.position.x, closestEnemy.position.y);
         for (Cell block : surroundingBlocks){
             if (!diagonalChosen){
                 if(between(block.x, closestEnemy.position.x, currentWorm.position.x) && between(block.y, closestEnemy.position.y, currentWorm.position.y)){
@@ -86,6 +86,22 @@ public class Bot {
         return new DoNothingCommand();
     }
 
+    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
+        boolean diagonalChosen = false;
+
+        Cell chosenCell = surroundingCells.get(0);
+        for (Cell block : surroundingCells){
+            if (!diagonalChosen){
+                if(between(block.x, destinationX, currentWorm.position.x) && between(block.y, destinationY, currentWorm.position.y)){
+                    chosenCell = block;
+                    if(block.x != currentWorm.position.x && block.y != currentWorm.position.y){
+                        diagonalChosen = true;
+                    }
+                }
+            }
+        }
+        return chosenCell;
+    }
     private Worm getFirstWormInRange() {
 
         Set<String> cells = constructFireDirectionLines(currentWorm.weapon.range)

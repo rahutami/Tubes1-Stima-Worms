@@ -28,23 +28,59 @@ public class Bot {
                 .findFirst()
                 .get();
     }
+//    Cek x1 between x2 sama x3 apa ga
+
+    private boolean between(int x1, int x2, int x3){
+        if(x2 > x3){
+            return x1 >= x3 && x1 <= x2;
+        } else {
+            return x1 <= x3 && x1 >= x2;
+        }
+    }
 
     public Command run() {
-
+//        Kalo ada enemy yang bisa ditembak -> ditembak
         Worm enemyWorm = getFirstWormInRange();
-        if (enemyWorm != null) {
+        if (enemyWorm != null && enemyWorm.health > 0) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
             return new ShootCommand(direction);
         }
 
-        List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
-        int cellIdx = random.nextInt(surroundingBlocks.size());
+//        Nyari worm enemy yang paling deket
+        Worm closestEnemy = opponent.worms[1];
+        double closestDistance = 50;
+        for (Worm enemyWorms : opponent.worms){
+            double accumDistance = 0;
+            for(Worm myWorm : gameState.myPlayer.worms){
+                accumDistance += euclideanDistance(myWorm.position.x, myWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+            }
 
-        Cell block = surroundingBlocks.get(cellIdx);
-        if (block.type == CellType.AIR) {
-            return new MoveCommand(block.x, block.y);
-        } else if (block.type == CellType.DIRT) {
-            return new DigCommand(block.x, block.y);
+            if(accumDistance < closestDistance){
+                closestDistance = accumDistance;
+                closestEnemy = enemyWorms;
+            }
+        }
+
+        List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
+
+        boolean diagonalChosen = false;
+
+        Cell chosenCell = surroundingBlocks.get(0);
+        for (Cell block : surroundingBlocks){
+            if (!diagonalChosen){
+                if(between(block.x, closestEnemy.position.x, currentWorm.position.x) && between(block.y, closestEnemy.position.y, currentWorm.position.y)){
+                    chosenCell = block;
+                    if(block.x != currentWorm.position.x && block.y != currentWorm.position.y){
+                        diagonalChosen = true;
+                    }
+                }
+            }
+        }
+
+        if (chosenCell.type == CellType.AIR) {
+            return new MoveCommand(chosenCell.x, chosenCell.y);
+        } else if (chosenCell.type == CellType.DIRT) {
+            return new DigCommand(chosenCell.x, chosenCell.y);
         }
 
         return new DoNothingCommand();

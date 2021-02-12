@@ -63,19 +63,7 @@ public class Bot {
 
         List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
 
-        boolean diagonalChosen = false;
-
         Cell chosenCell = chooseCell(surroundingBlocks, closestEnemy.position.x, closestEnemy.position.y);
-        for (Cell block : surroundingBlocks){
-            if (!diagonalChosen){
-                if(between(block.x, closestEnemy.position.x, currentWorm.position.x) && between(block.y, closestEnemy.position.y, currentWorm.position.y)){
-                    chosenCell = block;
-                    if(block.x != currentWorm.position.x && block.y != currentWorm.position.y){
-                        diagonalChosen = true;
-                    }
-                }
-            }
-        }
 
         if (chosenCell.type == CellType.AIR) {
             return new MoveCommand(chosenCell.x, chosenCell.y);
@@ -86,22 +74,27 @@ public class Bot {
         return new DoNothingCommand();
     }
 
+//    Dari surrounding cells, dipilih cell buat move/dig
     private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
         boolean diagonalChosen = false;
 
         Cell chosenCell = surroundingCells.get(0);
-        for (Cell block : surroundingCells){
-            if (!diagonalChosen){
-                if(between(block.x, destinationX, currentWorm.position.x) && between(block.y, destinationY, currentWorm.position.y)){
-                    chosenCell = block;
-                    if(block.x != currentWorm.position.x && block.y != currentWorm.position.y){
-                        diagonalChosen = true;
-                    }
+        int i = 0;
+
+//        Mencari cell yang bisa membawa ke cell tujuan
+        while(i < surroundingCells.size() && !diagonalChosen){ //Karena move diagonal bakal paling efektif, kalo bisa diagonal yang dipilih yang diagonal.
+            Cell currentCell = surroundingCells.get(i);
+            if(between(currentCell.x, destinationX, currentWorm.position.x) && between(currentCell.y, destinationY, currentWorm.position.y)){
+                chosenCell = currentCell;
+                if(currentCell.x != currentWorm.position.x && currentCell.y != currentWorm.position.y){
+                    diagonalChosen = true;
                 }
             }
+            i++;
         }
         return chosenCell;
     }
+
     private Worm getFirstWormInRange() {
 
         Set<String> cells = constructFireDirectionLines(currentWorm.weapon.range)

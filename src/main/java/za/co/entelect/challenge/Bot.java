@@ -262,6 +262,94 @@ public class Bot {
         return (opponentWorms[i].position);
     }
 
+    private Worm getFirstWormInSnowballRange(){
+        //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
+        Set<String> cells = constructFireDirectionLines(currentWorm.snowballs.range).stream().flatMap(Collection::stream)
+                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
+
+        for (Worm enemyWorm : opponent.worms) {
+            String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
+            if (cells.contains(enemyPosition)) {
+                return enemyWorm;
+            }
+        }
+
+        return null;
+    }
+
+    private Worm getFirstWormInBananaRange(){
+        //HANYA BISA DIJALANIN SAMA AGENT
+        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBombs.range).stream().flatMap(Collection::stream)
+                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
+
+        for (Worm enemyWorm : opponent.worms) {
+            String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
+            if (cells.contains(enemyPosition)) {
+                return enemyWorm;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isSnowballFeasible(){
+        //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
+        Worm enemy = getFirstWormInSnowballRange();
+
+        if (enemy != null){
+            //Check ada worms kita atau engga di freeze radius
+            boolean found = false;
+            Worm[] myWorms = player.worms;
+            int i = 0;
+            while(!found and i < myWorms.length){
+                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
+                if(inRange <= currentWorm.snowballs.freezeRadius){
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+
+            if(found){
+                return false;
+            } else {
+                return true;
+            }
+            
+        } else /*enemy = null*/ {
+            return false;
+        }
+    }
+
+    private boolean isBananaFeasible(){
+        //HANYA BISA DIJALANIN SAMA AGENT
+        Worm enemy = getFirstWormInBananaRange();
+
+        if (enemy != null){
+            //Check ada worms kita atau engga di damage radius
+            boolean found = false;
+            Worm[] myWorms = player.worms;
+            int i = 0;
+            while(!found and i < myWorms.length){
+                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
+                if(inRange <= currentWorm.bananaBombs.damageRadius){
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+
+            if(found){
+                return false;
+            } else {
+                return true;
+            }
+            
+        } else /*enemy = null*/ {
+            return false;
+        }
+    }
+
     /*
      * TODO Fungsi kelayakan, pengecekan untuk tidak melakukan invalid command.
      * bingung parameternya hehe, yang penting gunain isCellOccupied, isDirt,

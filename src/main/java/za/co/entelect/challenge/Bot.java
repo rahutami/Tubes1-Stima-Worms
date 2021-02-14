@@ -21,6 +21,7 @@ public class Bot {
         this.gameState = gameState;
         this.opponent = gameState.opponents[0];
         this.currentWorm = getCurrentWorm(gameState);
+        this.player = gameState.myPlayer;
     }
 
     private MyWorm getCurrentWorm(GameState gameState) {
@@ -30,48 +31,38 @@ public class Bot {
     // Cek x1 between x2 sama x3 apa ga
 
     private boolean between(int x1, int x2, int x3) {
-        if (x2 > x3) {
-            return x1 >= x3 && x1 <= x2;
-        } else {
-            return x1 <= x3 && x1 >= x2;
-        }
+        return (x1 >= x3 && x1 <= x2) || (x1 <= x3 && x1 >= x2);
     }
 
     public Command run() {
         Cell chosenCell;
         Worm enemyWorm;
+        if(currentWorm.id == 2){ //Worm 2 --> Worm yang punya bananabomb
+            Position enemyPosition = isBananaFeasible();
+
+            if(enemyPosition != null) return new BananaCommand(enemyPosition.x, enemyPosition.y);
+        } else if (currentWorm.id == 3){ //Worm 3 --> Worm yang punya snowball
+            Worm enemy = isSnowballFeasible();
+
+            if(enemy != null && enemy.roundsUntilUnfrozen == 0) return new SnowballCommand(enemy.position.x, enemy.position.y);
+        }
 
 //        Kalo ada enemy yang bisa ditembak -> ditembak
-
         enemyWorm = getFirstWormInRange();
-        if (enemyWorm != null && enemyWorm.health > 0) {
-            Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
-            return new ShootCommand(direction);
-        }
 
 //        Nyari health pack
         Cell healthPackCell = searchPowerUp();
 
-        if (healthPackCell != null && isClosestToCell(healthPackCell)){
+        if (healthPackCell != null && currentWorm.id == 1){
             chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
+        } else if (enemyWorm != null) {
+            Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
+            return new ShootCommand(direction);
         } else {
             //        Nyari worm enemy yang paling deket
-            Worm closestEnemy = null;
-            double closestDistance = 1000;
-            for (Worm enemyWorms : opponent.worms){
+            Worm closestEnemy = getClosestWorm();
 
-                if(enemyWorms.health > 0){
-                    double distance  = euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
-                    if(distance < closestDistance){
-                        closestDistance = distance;
-                        closestEnemy = enemyWorms;
-                    }
-                }
-            }
-
-            List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
-
-            chosenCell = chooseCell(surroundingBlocks, closestEnemy.position.x, closestEnemy.position.y);
+            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), closestEnemy.position.x, closestEnemy.position.y);
         }
 
 
@@ -85,51 +76,6 @@ public class Bot {
         return new DoNothingCommand();
     }
 
-    private boolean isClosestToCell(Cell block){
-        Worm closest = null;
-        double closestDistance = 1000;
-
-        for (Worm worm : gameState.myPlayer.worms){
-            double distance = euclideanDistance(worm.position.x, worm.position.y, block.x, block.y);
-            if (distance < closestDistance && worm.health > 0) closest = worm;
-        }
-
-        return currentWorm.id == closest.id;
-    }
-
-    private Cell searchPowerUp(){
-        for(Cell[] row : gameState.map){
-            for (Cell column : row){
-                if(column.powerUp != null) return column;
-            }
-        }
-
-        return null;
-    }
-
-//    Dari surrounding cells, dipilih cell buat move/dig
-    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
-        boolean diagonalChosen = false;
-
-        Cell chosenCell = surroundingCells.get(0);
-        int i = 0;
-
-        // Mencari cell yang bisa membawa ke cell tujuan
-        while (i < surroundingCells.size() && !diagonalChosen) { // Karena move diagonal bakal paling efektif, kalo bisa
-                                                                 // diagonal yang dipilih yang diagonal.
-            Cell currentCell = surroundingCells.get(i);
-            if (between(currentCell.x, destinationX, currentWorm.position.x)
-                    && between(currentCell.y, destinationY, currentWorm.position.y)) {
-                chosenCell = currentCell;
-                if (currentCell.x != currentWorm.position.x && currentCell.y != currentWorm.position.y) {
-                    diagonalChosen = true;
-                }
-            }
-            i++;
-        }
-        return chosenCell;
-    }
-
     private Worm getFirstWormInRange() {
 
         Set<String> cells = constructFireDirectionLines(currentWorm.weapon.range).stream().flatMap(Collection::stream)
@@ -137,7 +83,7 @@ public class Bot {
 
         for (Worm enemyWorm : opponent.worms) {
             String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
-            if (cells.contains(enemyPosition)) {
+            if (cells.contains(enemyPosition) && enemyWorm.health > 0) {
                 return enemyWorm;
             }
         }
@@ -181,7 +127,7 @@ public class Bot {
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 // Don't include the current position
-                if (i != x && j != y && isValidCoordinate(i, j)) {
+                if ((i != x || j != y) && isValidCoordinate(i, j)) {
                     cells.add(gameState.map[j][i]);
                 }
             }
@@ -297,7 +243,7 @@ public class Bot {
 
     private Worm getFirstWormInSnowballRange() {
         // HANYA BISA DIJALANIN SAMA TECHNOLOGIST
-        Set<String> cells = constructFireDirectionLines(currentWorm.snowballs.range).stream()
+        Set<String> cells = constructFireDirectionLines(currentWorm.snowball.range).stream()
                 .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
                 .collect(Collectors.toSet());
 
@@ -313,7 +259,7 @@ public class Bot {
 
     private Worm getFirstWormInBananaRange() {
         // HANYA BISA DIJALANIN SAMA AGENT
-        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBombs.range).stream()
+        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBomb.range).stream()
                 .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
                 .collect(Collectors.toSet());
 
@@ -327,18 +273,18 @@ public class Bot {
         return null;
     }
 
-    private boolean isSnowballFeasible(){
+    private Worm isSnowballFeasible(){
         //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
         Worm enemy = getFirstWormInSnowballRange();
 
-        if (enemy != null){
+        if (enemy != null && currentWorm.snowball.count == 0){
             //Check ada worms kita atau engga di freeze radius
             boolean found = false;
             Worm[] myWorms = player.worms;
             int i = 0;
-            while(!found and i < myWorms.length){
+            while(!found && i < myWorms.length){
                 int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
-                if(inRange <= currentWorm.snowballs.freezeRadius){
+                if(inRange <= currentWorm.snowball.freezeRadius){
                     found = true;
                 } else {
                     i++;
@@ -346,28 +292,28 @@ public class Bot {
             }
 
             if(found){
-                return false;
+                return null;
             } else {
-                return true;
+                return enemy;
             }
             
         } else /*enemy = null*/ {
-            return false;
+            return null;
         }
     }
 
-    private boolean isBananaFeasible(){
+    private Position isBananaFeasible(){
         //HANYA BISA DIJALANIN SAMA AGENT
         Worm enemy = getFirstWormInBananaRange();
 
-        if (enemy != null){
+        if (enemy != null && currentWorm.bananaBomb.count == 0){
             //Check ada worms kita atau engga di damage radius
             boolean found = false;
             Worm[] myWorms = player.worms;
             int i = 0;
-            while(!found and i < myWorms.length){
+            while(!found && i < myWorms.length){
                 int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
-                if(inRange <= currentWorm.bananaBombs.damageRadius){
+                if(inRange <= currentWorm.bananaBomb.damageRadius){
                     found = true;
                 } else {
                     i++;
@@ -375,14 +321,77 @@ public class Bot {
             }
 
             if(found){
-                return false;
+                return null;
             } else {
-                return true;
+                return enemy.position;
             }
             
         } else /*enemy = null*/ {
-            return false;
+            return null;
         }
+    }
+
+    private boolean isClosestToCell(Cell block){
+        Worm closest = null;
+        double closestDistance = 1000;
+
+        for (Worm worm : gameState.myPlayer.worms){
+            double distance = euclideanDistance(worm.position.x, worm.position.y, block.x, block.y);
+            if (distance < closestDistance && worm.health > 0) closest = worm;
+        }
+
+        return currentWorm.id == closest.id;
+    }
+
+    private Cell searchPowerUp(){
+        for(Cell[] row : gameState.map){
+            for (Cell column : row){
+                if(column.powerUp != null) return column;
+            }
+        }
+
+        return null;
+    }
+
+    //    Dari surrounding cells, dipilih cell buat move/dig
+    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
+        boolean diagonalChosen = false;
+
+        Cell chosenCell = surroundingCells.get(0);
+        int i = 0;
+
+        // Mencari cell yang bisa membawa ke cell tujuan
+        while (i < surroundingCells.size() && !diagonalChosen) { // Karena move diagonal bakal paling efektif, kalo bisa
+            // diagonal yang dipilih yang diagonal.
+            Cell currentCell = surroundingCells.get(i);
+            if (between(currentCell.x, destinationX, currentWorm.position.x)
+                    && between(currentCell.y, destinationY, currentWorm.position.y)) {
+                chosenCell = currentCell;
+                if (currentCell.x != currentWorm.position.x && currentCell.y != currentWorm.position.y) {
+                    diagonalChosen = true;
+                }
+            }
+            i++;
+        }
+        return chosenCell;
+    }
+
+    private Worm getClosestWorm(){
+        Worm closestEnemy = null;
+        double closestDistance = 1000;
+
+        for (Worm enemyWorms : opponent.worms){
+
+            if(enemyWorms.health > 0){
+                double distance  = euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+                if(distance < closestDistance){
+                    closestDistance = distance;
+                    closestEnemy = enemyWorms;
+                }
+            }
+        }
+
+        return closestEnemy;
     }
 
     /*

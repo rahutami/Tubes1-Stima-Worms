@@ -2,6 +2,7 @@ D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\jav
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Weapon.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\DoNothingCommand.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Opponent.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Snowball.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\DigCommand.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\PowerUp.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\ShootCommand.java
@@ -11,6 +12,7 @@ D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\jav
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\MyPlayer.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\enums\PowerUpType.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\BananaCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\BananaBomb.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\GameState.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\MyWorm.java
 D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Cell.java

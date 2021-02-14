@@ -1,3 +1,4 @@
+za\co\entelect\challenge\entities\BananaBomb.class
 za\co\entelect\challenge\command\SnowballCommand.class
 za\co\entelect\challenge\command\ShootCommand.class
 za\co\entelect\challenge\command\BananaCommand.class
@@ -6,6 +7,7 @@ za\co\entelect\challenge\command\MoveCommand.class
 za\co\entelect\challenge\command\Command.class
 za\co\entelect\challenge\enums\Direction.class
 za\co\entelect\challenge\Bot.class
+za\co\entelect\challenge\entities\Snowball.class
 za\co\entelect\challenge\entities\Position.class
 za\co\entelect\challenge\entities\PowerUp.class
 za\co\entelect\challenge\command\DigCommand.class

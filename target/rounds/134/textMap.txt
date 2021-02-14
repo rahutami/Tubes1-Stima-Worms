@@ -13,20 +13,20 @@ Lava damage: 3
 @02 My Player
 Section lines count: 66
 Player id: 1
-Score: 1044
+Score: 1211
 Selection Tokens: 5
 Previous Command: shoot E
-Health: 76
+Health: 68
 Current Worm: 3
 Worms: 
 
 Worm id: 1
-Health: -6
-Position x: 16
-Position y: 12
+Health: -5
+Position x: 15
+Position y: 13
 Digging range: 1
 Movement range: 1
-Rounds until unfrozen: 0
+Rounds until unfrozen: 3
 Profession: Commando
 Weapon damage: 8
 Weapon range: 4
@@ -41,8 +41,8 @@ Snowballs freeze radius: null
 
 Worm id: 2
 Health: -4
-Position x: 19
-Position y: 17
+Position x: 17
+Position y: 21
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -51,7 +51,7 @@ Weapon damage: 8
 Weapon range: 4
 Banana bomb damage: 20
 Banana bomb range: 5
-Banana bombs count: 3
+Banana bombs count: 0
 Banana bomb damage radius: 2
 Snowballs freeze duration: null
 Snowballs range: null
@@ -59,9 +59,9 @@ Snowballs count: null
 Snowballs freeze radius: null
 
 Worm id: 3
-Health: 76
-Position x: 5
-Position y: 12
+Health: 68
+Position x: 4
+Position y: 13
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -74,30 +74,30 @@ Banana bombs count: null
 Banana bomb damage radius: null
 Snowballs freeze duration: 5
 Snowballs range: 5
-Snowballs count: 3
+Snowballs count: 0
 Snowballs freeze radius: 1
 
 @03 Opponents
 Section lines count: 37
 Player id: 2
-Score: 1329
+Score: 1307
 Selection Tokens: 0
 Previous Command: shoot W
-Current Worm: 1
+Current Worm: 3
 Worms: 
 
 Worm id: 1
-Health: 114
-Position x: 7
-Position y: 12
+Health: -4
+Position x: 6
+Position y: 13
 Digging range: 1
 Movement range: 1
-Rounds until unfrozen: 0
+Rounds until unfrozen: 2
 Profession: Commando
 
 Worm id: 2
 Health: -4
-Position x: 8
+Position x: 7
 Position y: 13
 Digging range: 1
 Movement range: 1
@@ -105,9 +105,9 @@ Rounds until unfrozen: 0
 Profession: Agent
 
 Worm id: 3
-Health: 44
-Position x: 6
-Position y: 12
+Health: 78
+Position x: 8
+Position y: 13
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -129,36 +129,36 @@ WORM_MARKER: 13 Example for:Player1, Worm3
 
 @06 World Map
 Section lines count: 35
-██████████████████████▓▓▓▓▓▓XX▓▓▓▓▓▓XX▓▓▓▓▓▓██████████████████████
-████████████████▓▓▓▓▓▓▓▓XX▓▓XX▓▓▓▓▓▓XX▓▓XX▓▓▓▓▓▓▓▓████████████████
-██████████████▓▓▓▓▓▓▓▓▓▓XXXX▓▓▓▓▓▓▓▓▓▓XXXX▓▓▓▓▓▓▓▓▓▓██████████████
-████████████▓▓XXXXXX▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓XXXXXX▓▓████████████
-████████▓▓▓▓▓▓XXXXXX▓▓░░▓▓▓▓▓▓░░▓▓░░▓▓▓▓▓▓░░▓▓XXXXXX▓▓▓▓▓▓████████
-████████▓▓▓▓▓▓XX░░░░▓▓░░░░░░░░░░▓▓░░░░░░░░░░▓▓░░░░XX▓▓▓▓▓▓████████
-██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓XX▓▓▓▓▓▓██████
-████XX▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓XX▓▓▓▓XX████
-██XXXXXXXX░░▓▓▓▓░░▓▓▓▓░░░░░░░░▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░▓▓▓▓░░XXXXXXXX██
-██XX▓▓▓▓XX░░░░▓▓░░░░▓▓░░▓▓░░▓▓▓▓░░░░▓▓░░▓▓░░▓▓░░░░▓▓░░░░XX▓▓▓▓XX██
-██XX▓▓▓▓░░░░░░▓▓░░░░▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓▓▓░░░░▓▓░░░░░░▓▓▓▓XX██
-XXXX▓▓▓▓░░░░░░░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░░░░░░░▓▓▓▓XXXX
-XX▓▓▓▓▓▓░░132321░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓░░▓▓░░░░░░▓▓▓▓▓▓XX
-XXXXXX░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓░░░░▓▓▓▓▓▓░░▓▓▓▓░░░░░░▓▓XXXX
-▓▓XX▓▓░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░░░░░▓▓▓▓░░░░▓▓▓▓▓▓▓▓
-XXXXXX▓▓░░▓▓▓▓▓▓░░░░░░▓▓▓▓░░░░░░░░░░░░▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓░░▓▓XXXXXX
-XXXXXX▓▓░░░░░░░░▓▓░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░XXXXXX
-XXXXXX▓▓░░░░▓▓▓▓▓▓░░░░▓▓▓▓▓▓░░░░░░░░▓▓░░▓▓▓▓░░░░▓▓▓▓▓▓░░░░▓▓XXXXXX
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░▓▓▓▓░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-XXXX▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓XXXX
-XXXXXX░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░▓▓░░▓▓▓▓░░░░░░░░░░░░░░▓▓▓▓▓▓░░XXXXXX
-XXXXXXXX░░▓▓▓▓░░░░▓▓▓▓░░░░▓▓░░▓▓░░▓▓▓▓▓▓░░░░▓▓░░░░░░▓▓▓▓░░XXXXXXXX
-██▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓██
-██XX▓▓XXXX░░░░▓▓░░▓▓▓▓░░▓▓░░░░░░░░░░░░░░▓▓░░▓▓▓▓░░░░░░░░XXXX▓▓XX██
-██XXXXXXXX▓▓▓▓▓▓░░▓▓░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓░░▓▓░░▓▓XXXXXXXX██
-████XXXXXX▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓XXXXXXXX████
-██████XXXXXX▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓XXXXXXXX██████
-████████XXXX▓▓XX░░░░▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓░░░░XX▓▓XXXX████████
-████████▓▓XX▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓XX▓▓████████
+██████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████████████
+████████████████XX▓▓▓▓▓▓▓▓XX▓▓XX▓▓XX▓▓XX▓▓▓▓▓▓▓▓XX████████████████
+██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓XXXXXXXXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████
 ████████████▓▓XXXXXX▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓▓▓▓▓▓▓XXXXXX▓▓████████████
-██████████████▓▓▓▓▓▓▓▓XX▓▓▓▓XXXX▓▓XXXX▓▓▓▓XX▓▓▓▓▓▓▓▓██████████████
-████████████████▓▓▓▓XXXX▓▓▓▓XXXXXXXXXX▓▓▓▓XXXX▓▓▓▓████████████████
-██████████████████████▓▓▓▓▓▓▓▓XXXXXX▓▓▓▓▓▓▓▓██████████████████████
+████████XXXX▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓XXXX████████
+████████XXXX▓▓XX░░░░▓▓░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓░░░░XX▓▓XXXX████████
+██████XXXX▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓XXXX██████
+████XX▓▓▓▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓░░▓▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓▓▓XX████
+██▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓██
+██XX▓▓▓▓XX▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░▓▓░░░░░░░░░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓XX▓▓▓▓XX██
+██XX▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░▓▓▓▓░░░░▓▓▓▓▓▓▓▓▓▓▓▓XX██
+▓▓XX▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░░░▓▓░░░░░░░░░░░░▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓XX▓▓
+▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+▓▓▓▓XX░░13░░░░░░23░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓░░░░░░░░XX▓▓▓▓
+▓▓XX▓▓░░▓▓▓▓░░░░░░░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓▓▓▓▓▓▓▓▓
+XXXXXX▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓░░▓▓▓▓▓▓▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓XXXXXX
+XXXXXX▓▓░░▓▓▓▓░░▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░XXXXXX
+XXXXXX▓▓░░░░░░░░░░░░░░▓▓░░░░▓▓▓▓▓▓▓▓▓▓░░░░▓▓░░░░░░░░░░░░░░▓▓XXXXXX
+▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓
+XX▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓░░░░▓▓▓▓░░▓▓▓▓░░░░▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓XX
+▓▓▓▓▓▓░░░░░░▓▓▓▓░░░░▓▓░░░░░░░░░░▓▓░░▓▓░░░░░░▓▓░░░░▓▓▓▓░░░░░░▓▓▓▓▓▓
+▓▓▓▓XXXX░░░░▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░XXXX▓▓▓▓
+██XXXXXX▓▓▓▓░░▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓░░▓▓▓▓XXXXXX██
+██▓▓XXXX▓▓▓▓░░▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓░░▓▓▓▓XXXX▓▓██
+██▓▓▓▓XX▓▓▓▓░░▓▓▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓░░░░▓▓▓▓░░▓▓▓▓XX▓▓▓▓██
+████XXXX▓▓▓▓░░░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░░░▓▓▓▓XXXX████
+██████▓▓XX▓▓▓▓▓▓▓▓▓▓░░▓▓░░░░▓▓░░░░░░▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓XX▓▓██████
+████████XX▓▓▓▓XX░░░░▓▓░░░░░░▓▓░░░░░░▓▓░░░░░░▓▓░░░░XX▓▓▓▓XX████████
+████████XXXX▓▓XXXXXX▓▓░░░░░░▓▓░░░░░░▓▓░░░░░░▓▓XXXXXX▓▓XXXX████████
+████████████▓▓XXXXXX▓▓XX░░░░░░░░░░░░░░░░░░XX▓▓XXXXXX▓▓████████████
+██████████████▓▓▓▓▓▓▓▓XXXXXX▓▓XX▓▓XX▓▓XXXXXX▓▓▓▓▓▓▓▓██████████████
+████████████████▓▓▓▓▓▓XX▓▓XX▓▓▓▓▓▓▓▓▓▓XX▓▓XX▓▓▓▓▓▓████████████████
+██████████████████████▓▓XXXX▓▓▓▓▓▓▓▓▓▓XXXX▓▓██████████████████████

@@ -39,31 +39,43 @@ public class Bot {
     }
 
     public Command run() {
+        Cell chosenCell;
+        Worm enemyWorm;
+
 //        Kalo ada enemy yang bisa ditembak -> ditembak
-        Worm enemyWorm = getFirstWormInRange();
+
+        enemyWorm = getFirstWormInRange();
         if (enemyWorm != null && enemyWorm.health > 0) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
             return new ShootCommand(direction);
         }
 
-//        Nyari worm enemy yang paling deket
-        Worm closestEnemy = opponent.worms[1];
-        double closestDistance = 50;
-        for (Worm enemyWorms : opponent.worms){
-            double accumDistance = 0;
-            for(Worm myWorm : gameState.myPlayer.worms){
-                accumDistance += euclideanDistance(myWorm.position.x, myWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+//        Nyari health pack
+        Cell healthPackCell = searchPowerUp();
+
+        if (healthPackCell != null && isClosestToCell(healthPackCell)){
+            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
+        } else {
+            //        Nyari worm enemy yang paling deket
+            Worm closestEnemy = null;
+            double closestDistance = 1000;
+            for (Worm enemyWorms : opponent.worms){
+
+                if(enemyWorms.health > 0){
+                    double distance  = euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+                    if(distance < closestDistance){
+                        closestDistance = distance;
+                        closestEnemy = enemyWorms;
+                    }
+                }
             }
 
-            if(accumDistance < closestDistance){
-                closestDistance = accumDistance;
-                closestEnemy = enemyWorms;
-            }
+            List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
+
+            chosenCell = chooseCell(surroundingBlocks, closestEnemy.position.x, closestEnemy.position.y);
         }
 
-        List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
 
-        Cell chosenCell = chooseCell(surroundingBlocks, closestEnemy.position.x, closestEnemy.position.y);
 
         if (chosenCell.type == CellType.AIR) {
             return new MoveCommand(chosenCell.x, chosenCell.y);
@@ -72,6 +84,28 @@ public class Bot {
         }
 
         return new DoNothingCommand();
+    }
+
+    private boolean isClosestToCell(Cell block){
+        Worm closest = null;
+        double closestDistance = 1000;
+
+        for (Worm worm : gameState.myPlayer.worms){
+            double distance = euclideanDistance(worm.position.x, worm.position.y, block.x, block.y);
+            if (distance < closestDistance && worm.health > 0) closest = worm;
+        }
+
+        return currentWorm.id == closest.id;
+    }
+
+    private Cell searchPowerUp(){
+        for(Cell[] row : gameState.map){
+            for (Cell column : row){
+                if(column.powerUp != null) return column;
+            }
+        }
+
+        return null;
     }
 
 //    Dari surrounding cells, dipilih cell buat move/dig

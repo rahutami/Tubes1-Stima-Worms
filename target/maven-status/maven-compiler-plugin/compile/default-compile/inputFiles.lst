@@ -1,19 +1,21 @@
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\enums\Direction.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\MyWorm.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\command\ShootCommand.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\GameState.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\enums\PowerUpType.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\Bot.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\Cell.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\command\DoNothingCommand.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\command\Command.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\PowerUp.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\Weapon.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\MyPlayer.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\enums\CellType.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\command\MoveCommand.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\Main.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\Worm.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\Position.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\entities\Opponent.java
-D:\Users\USER\Documents\OneDrive - Institut Teknologi Bandung\Kuliah\Semester 4\IF2211 - Strategi Algoritma\Tugas\Tubes 1\starter-pack\starter-bots\java\src\main\java\za\co\entelect\challenge\command\DigCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\SnowballCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Weapon.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\DoNothingCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Opponent.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\DigCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\PowerUp.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\ShootCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\enums\CellType.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\Main.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Position.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\MyPlayer.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\enums\PowerUpType.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\BananaCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\GameState.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\MyWorm.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Cell.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\Command.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\command\MoveCommand.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\Bot.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\entities\Worm.java
+D:\Users\USER\Documents\Tubes\Worms\starter-bots\Tubes1-Stima-Worms\src\main\java\za\co\entelect\challenge\enums\Direction.java

@@ -38,23 +38,17 @@ public class Bot {
     }
 
     public Command run() {
-<<<<<<< HEAD
         Cell chosenCell;
         Worm enemyWorm;
 
 //        Kalo ada enemy yang bisa ditembak -> ditembak
 
         enemyWorm = getFirstWormInRange();
-=======
-        // Kalo ada enemy yang bisa ditembak -> ditembak
-        Worm enemyWorm = getFirstWormInRange();
->>>>>>> ddb22c8321f25994194454786383ab31f89081a4
         if (enemyWorm != null && enemyWorm.health > 0) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
             return new ShootCommand(direction);
         }
 
-<<<<<<< HEAD
 //        Nyari health pack
         Cell healthPackCell = searchPowerUp();
 
@@ -73,21 +67,6 @@ public class Bot {
                         closestEnemy = enemyWorms;
                     }
                 }
-=======
-        // Nyari worm enemy yang paling deket
-        Worm closestEnemy = opponent.worms[1];
-        double closestDistance = 50;
-        for (Worm enemyWorms : opponent.worms) {
-            double accumDistance = 0;
-            for (Worm myWorm : gameState.myPlayer.worms) {
-                accumDistance += euclideanDistance(myWorm.position.x, myWorm.position.y, enemyWorms.position.x,
-                        enemyWorms.position.y);
-            }
-
-            if (accumDistance < closestDistance) {
-                closestDistance = accumDistance;
-                closestEnemy = enemyWorms;
->>>>>>> ddb22c8321f25994194454786383ab31f89081a4
             }
 
             List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
@@ -106,7 +85,6 @@ public class Bot {
         return new DoNothingCommand();
     }
 
-<<<<<<< HEAD
     private boolean isClosestToCell(Cell block){
         Worm closest = null;
         double closestDistance = 1000;
@@ -131,10 +109,6 @@ public class Bot {
 
 //    Dari surrounding cells, dipilih cell buat move/dig
     private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
-=======
-    // Dari surrounding cells, dipilih cell buat move/dig
-    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY) {
->>>>>>> ddb22c8321f25994194454786383ab31f89081a4
         boolean diagonalChosen = false;
 
         Cell chosenCell = surroundingCells.get(0);

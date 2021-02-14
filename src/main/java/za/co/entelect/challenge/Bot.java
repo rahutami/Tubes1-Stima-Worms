@@ -216,7 +216,7 @@ public class Bot {
                 j++;
             }
         }
-        return (foundOpponentWorm && foundPlayerWorm);
+        return (foundOpponentWorm || foundPlayerWorm);
     }
 
     // Cek apakah cell surrounded by dirt
@@ -262,10 +262,11 @@ public class Bot {
         return (opponentWorms[i].position);
     }
 
-    private Worm getFirstWormInSnowballRange(){
-        //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
-        Set<String> cells = constructFireDirectionLines(currentWorm.snowballs.range).stream().flatMap(Collection::stream)
-                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
+    private Worm getFirstWormInSnowballRange() {
+        // HANYA BISA DIJALANIN SAMA TECHNOLOGIST
+        Set<String> cells = constructFireDirectionLines(currentWorm.snowballs.range).stream()
+                .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
+                .collect(Collectors.toSet());
 
         for (Worm enemyWorm : opponent.worms) {
             String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
@@ -277,10 +278,11 @@ public class Bot {
         return null;
     }
 
-    private Worm getFirstWormInBananaRange(){
-        //HANYA BISA DIJALANIN SAMA AGENT
-        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBombs.range).stream().flatMap(Collection::stream)
-                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
+    private Worm getFirstWormInBananaRange() {
+        // HANYA BISA DIJALANIN SAMA AGENT
+        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBombs.range).stream()
+                .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
+                .collect(Collectors.toSet());
 
         for (Worm enemyWorm : opponent.worms) {
             String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);

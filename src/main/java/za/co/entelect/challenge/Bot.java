@@ -350,9 +350,11 @@ public class Bot {
         Cell[][] blocks = gameState.map;
         int mostWormInRange = 0;
         Cell chosenCell = null;
+        boolean wormAtCenter;
 
         for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++){
             for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++){
+                wormAtCenter = false;
                 if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
                     List <Cell> affectedCells = getBananaAffectedCell(i,j);
 
@@ -360,6 +362,7 @@ public class Bot {
                     for (Cell cell : affectedCells){
                         for(Worm enemyWorm : opponent.worms){
                             if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.health > 0) wormInRange++;
+                            if(enemyWorm.position.x == i && enemyWorm.position.y == j) wormAtCenter = true;
                         }
                         for(Worm myWorm : player.worms){
                             if(myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0) wormInRange = -5;
@@ -367,6 +370,8 @@ public class Bot {
                     }
                     if(wormInRange > mostWormInRange){
                         mostWormInRange = wormInRange;
+                        chosenCell = blocks[j][i];
+                    } else if (wormInRange == mostWormInRange && wormAtCenter){
                         chosenCell = blocks[j][i];
                     }
                 }

@@ -11,6 +11,7 @@ za\co\entelect\challenge\entities\Snowball.class
 za\co\entelect\challenge\entities\Position.class
 za\co\entelect\challenge\entities\PowerUp.class
 za\co\entelect\challenge\command\DigCommand.class
+za\co\entelect\challenge\command\SelectCommand.class
 za\co\entelect\challenge\entities\Cell.class
 za\co\entelect\challenge\enums\PowerUpType.class
 za\co\entelect\challenge\entities\MyWorm.class

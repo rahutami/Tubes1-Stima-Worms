@@ -38,13 +38,13 @@ public class Bot {
         Cell chosenCell;
         Worm enemyWorm;
         if(currentWorm.id == 2){ //Worm 2 --> Worm yang punya bananabomb
-            Position enemyPosition = isBananaFeasible();
+            Cell bananaTarget = getBananaTarget();
 
-            if(enemyPosition != null) return new BananaCommand(enemyPosition.x, enemyPosition.y);
+            if(bananaTarget != null && currentWorm.bananaBomb.count > 0) return new BananaCommand(bananaTarget.x, bananaTarget.y);
         } else if (currentWorm.id == 3){ //Worm 3 --> Worm yang punya snowball
-            Worm enemy = isSnowballFeasible();
+            Cell snowballTarget = getSnowballTarget();
 
-            if(enemy != null && enemy.roundsUntilUnfrozen == 0) return new SnowballCommand(enemy.position.x, enemy.position.y);
+            if(snowballTarget != null && currentWorm.snowball.count > 0) return new SnowballCommand(snowballTarget.x, snowballTarget.y);
         }
 
 //        Kalo ada enemy yang bisa ditembak -> ditembak
@@ -53,11 +53,11 @@ public class Bot {
 //        Nyari health pack
         Cell healthPackCell = searchPowerUp();
 
-        if (healthPackCell != null && currentWorm.id == 1){
-            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
-        } else if (enemyWorm != null) {
+        if (enemyWorm != null) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
             return new ShootCommand(direction);
+        } else if (healthPackCell != null){
+            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
         } else {
             //        Nyari worm enemy yang paling deket
             Worm closestEnemy = getClosestWorm();
@@ -273,6 +273,66 @@ public class Bot {
         return null;
     }
 
+    private Cell getSnowballTarget(){
+        Cell[][] blocks = gameState.map;
+        int mostWormInRange = 0;
+        Cell chosenCell = null;
+
+        for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++){
+            for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++){
+                if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
+                    List <Cell> affectedCells = getSurroundingCells(i, j);
+                    affectedCells.add(blocks[j][i]);
+                    for (Cell cell : affectedCells){
+                        int wormInRange = 0;
+                        for(Worm enemyWorm : opponent.worms){
+                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.roundsUntilUnfrozen == 0) wormInRange++;
+                        }
+                        for(Worm myWorm : player.worms){
+                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y) wormInRange = 0;
+                        }
+                        if(wormInRange > mostWormInRange){
+                            mostWormInRange = wormInRange;
+                            chosenCell = blocks[j][i];
+                        }
+                    }
+                }
+            }
+        }
+
+        return chosenCell;
+    }
+
+    private Cell getBananaTarget(){
+        Cell[][] blocks = gameState.map;
+        int mostWormInRange = 0;
+        Cell chosenCell = null;
+
+        for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++){
+            for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++){
+                if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
+                    List <Cell> affectedCells = getBananaAffectedCell(i,j);
+
+                    for (Cell cell : affectedCells){
+                        int wormInRange = 0;
+                        for(Worm enemyWorm : opponent.worms){
+                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y) wormInRange++;
+                        }
+                        for(Worm myWorm : player.worms){
+                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y) wormInRange = 0;
+                        }
+                        if(wormInRange > mostWormInRange){
+                            mostWormInRange = wormInRange;
+                            chosenCell = blocks[j][i];
+                        }
+                    }
+                }
+            }
+        }
+
+        return chosenCell;
+    }
+
     private Worm isSnowballFeasible(){
         //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
         Worm enemy = getFirstWormInSnowballRange();
@@ -381,9 +441,15 @@ public class Bot {
         double closestDistance = 1000;
 
         for (Worm enemyWorms : opponent.worms){
-
             if(enemyWorms.health > 0){
-                double distance  = euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+                double distance  = 0;
+
+                for(Worm myWorm : player.worms){
+                    if (myWorm.health > 0){
+                        distance += euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+                    }
+                }
+
                 if(distance < closestDistance){
                     closestDistance = distance;
                     closestEnemy = enemyWorms;
@@ -392,6 +458,20 @@ public class Bot {
         }
 
         return closestEnemy;
+    }
+
+    private List<Cell> getBananaAffectedCell(int x, int y) {
+        ArrayList<Cell> cells = new ArrayList<>();
+        for (int i = x - 2; i <= x + 2; i++) {
+            for (int j = y - 2; j <= y + 2; j++) {
+                // Don't include the current position
+                if (isValidCoordinate(i, j) && euclideanDistance(i, j, x, y) <= 2) {
+                    cells.add(gameState.map[j][i]);
+                }
+            }
+        }
+
+        return cells;
     }
 
     /*

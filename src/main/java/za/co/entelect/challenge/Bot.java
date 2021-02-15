@@ -37,14 +37,28 @@ public class Bot {
     public Command run() {
         Cell chosenCell;
         Worm enemyWorm;
+        boolean selectNewWorm = false;
+
+        if(currentWorm.roundsUntilUnfrozen > 0 && player.remainingWormSelections > 0){
+            if(currentWorm.id == 3) currentWorm = player.worms[0];
+            else currentWorm = player.worms[currentWorm.id];
+
+            selectNewWorm = true;
+        }
         if(currentWorm.id == 2){ //Worm 2 --> Worm yang punya bananabomb
             Cell bananaTarget = getBananaTarget();
 
-            if(bananaTarget != null && currentWorm.bananaBomb.count > 0) return new BananaCommand(bananaTarget.x, bananaTarget.y);
+            if(bananaTarget != null && currentWorm.bananaBomb.count > 0){
+                if(selectNewWorm) return new SelectCommand(currentWorm.id, new BananaCommand(bananaTarget.x, bananaTarget.y));
+                return new BananaCommand(bananaTarget.x, bananaTarget.y);
+            }
         } else if (currentWorm.id == 3){ //Worm 3 --> Worm yang punya snowball
             Cell snowballTarget = getSnowballTarget();
 
-            if(snowballTarget != null && currentWorm.snowball.count > 0) return new SnowballCommand(snowballTarget.x, snowballTarget.y);
+            if(snowballTarget != null && currentWorm.snowball.count > 0) {
+                if(selectNewWorm) return new SelectCommand(currentWorm.id, new SnowballCommand(snowballTarget.x, snowballTarget.y));
+                return new SnowballCommand(snowballTarget.x, snowballTarget.y);
+            }
         }
 
 //        Kalo ada enemy yang bisa ditembak -> ditembak
@@ -55,6 +69,8 @@ public class Bot {
 
         if (enemyWorm != null) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
+
+            if(selectNewWorm) return new SelectCommand(currentWorm.id, new ShootCommand(direction));
             return new ShootCommand(direction);
         } else if (healthPackCell != null){
             chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
@@ -68,8 +84,10 @@ public class Bot {
 
 
         if (chosenCell.type == CellType.AIR) {
+            if(selectNewWorm) return new SelectCommand(currentWorm.id, new MoveCommand(chosenCell.x, chosenCell.y));
             return new MoveCommand(chosenCell.x, chosenCell.y);
         } else if (chosenCell.type == CellType.DIRT) {
+            if(selectNewWorm) return new SelectCommand(currentWorm.id, new DigCommand(chosenCell.x, chosenCell.y));
             return new DigCommand(chosenCell.x, chosenCell.y);
         }
 
@@ -90,6 +108,31 @@ public class Bot {
 
         return null;
     }
+
+//    private Worm getFirstWormInRange() {
+//
+//        Set<String> cells = constructFireDirectionLines(currentWorm.weapon.range).stream().flatMap(Collection::stream)
+//                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
+//
+//        for (Worm enemyWorm : opponent.worms) {
+//            boolean enemyWormExist = false, myWormExist = false;
+//            String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
+//            if (cells.contains(enemyPosition) && enemyWorm.health > 0) {
+//                enemyWormExist = true;
+//            }
+//
+//            for (Worm myWorm : player.worms) {
+//                String myWormPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
+//                if (cells.contains(myWormPosition) && myWorm.health > 0) {
+//                    myWormExist = true;
+//                }
+//            }
+//
+//            if(enemyWormExist && !myWormExist) return enemyWorm;
+//        }
+//
+//        return null;
+//    }
 
     private List<List<Cell>> constructFireDirectionLines(int range) {
         List<List<Cell>> directionLines = new ArrayList<>();
@@ -283,18 +326,18 @@ public class Bot {
                 if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
                     List <Cell> affectedCells = getSurroundingCells(i, j);
                     affectedCells.add(blocks[j][i]);
+                    int wormInRange = 0;
                     for (Cell cell : affectedCells){
-                        int wormInRange = 0;
                         for(Worm enemyWorm : opponent.worms){
-                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.roundsUntilUnfrozen == 0) wormInRange++;
+                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.roundsUntilUnfrozen == 0 && enemyWorm.health > 0) wormInRange++;
                         }
                         for(Worm myWorm : player.worms){
-                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y) wormInRange = 0;
+                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0) wormInRange = -5;
                         }
-                        if(wormInRange > mostWormInRange){
-                            mostWormInRange = wormInRange;
-                            chosenCell = blocks[j][i];
-                        }
+                    }
+                    if(wormInRange > mostWormInRange){
+                        mostWormInRange = wormInRange;
+                        chosenCell = blocks[j][i];
                     }
                 }
             }
@@ -313,18 +356,18 @@ public class Bot {
                 if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
                     List <Cell> affectedCells = getBananaAffectedCell(i,j);
 
+                    int wormInRange = 0;
                     for (Cell cell : affectedCells){
-                        int wormInRange = 0;
                         for(Worm enemyWorm : opponent.worms){
-                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y) wormInRange++;
+                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.health > 0) wormInRange++;
                         }
                         for(Worm myWorm : player.worms){
-                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y) wormInRange = 0;
+                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0) wormInRange = -5;
                         }
-                        if(wormInRange > mostWormInRange){
-                            mostWormInRange = wormInRange;
-                            chosenCell = blocks[j][i];
-                        }
+                    }
+                    if(wormInRange > mostWormInRange){
+                        mostWormInRange = wormInRange;
+                        chosenCell = blocks[j][i];
                     }
                 }
             }

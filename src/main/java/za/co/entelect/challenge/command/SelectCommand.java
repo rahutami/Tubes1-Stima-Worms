@@ -11,6 +11,6 @@ public class SelectCommand implements Command{
 
     @Override
     public String render() {
-        return String.format("select %d;", worm, nextCommand.render());
+        return String.format("select %d;", worm).concat(nextCommand.render());
     }
 }

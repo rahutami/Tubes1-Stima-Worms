@@ -34,28 +34,34 @@ public class Bot {
         return (x1 >= x3 && x1 <= x2) || (x1 <= x3 && x1 >= x2);
     }
 
+    private boolean changeWorm(){
+        for(MyWorm myWorm : player.worms){
+            if(myWorm.roundsUntilUnfrozen == 0){
+                currentWorm = myWorm;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Command run() {
         Cell chosenCell;
         Worm enemyWorm;
         boolean selectNewWorm = false;
 
-        if(currentWorm.roundsUntilUnfrozen > 0 && player.remainingWormSelections > 0){
-            if(currentWorm.id == 3) currentWorm = player.worms[0];
-            else currentWorm = player.worms[currentWorm.id];
-
-            selectNewWorm = true;
-        }
-        if(currentWorm.id == 2){ //Worm 2 --> Worm yang punya bananabomb
+        if(currentWorm.roundsUntilUnfrozen > 0 && player.remainingWormSelections > 0) selectNewWorm = changeWorm();
+        if(currentWorm.id == 2 && currentWorm.bananaBomb.count > 0){ //Worm 2 --> Worm yang punya bananabomb
             Cell bananaTarget = getBananaTarget();
 
-            if(bananaTarget != null && currentWorm.bananaBomb.count > 0){
+            if(bananaTarget != null){
                 if(selectNewWorm) return new SelectCommand(currentWorm.id, new BananaCommand(bananaTarget.x, bananaTarget.y));
                 return new BananaCommand(bananaTarget.x, bananaTarget.y);
             }
-        } else if (currentWorm.id == 3){ //Worm 3 --> Worm yang punya snowball
+        } else if (currentWorm.id == 3 && currentWorm.snowball.count > 0){ //Worm 3 --> Worm yang punya snowball
             Cell snowballTarget = getSnowballTarget();
 
-            if(snowballTarget != null && currentWorm.snowball.count > 0) {
+            if(snowballTarget != null) {
                 if(selectNewWorm) return new SelectCommand(currentWorm.id, new SnowballCommand(snowballTarget.x, snowballTarget.y));
                 return new SnowballCommand(snowballTarget.x, snowballTarget.y);
             }
@@ -133,6 +139,12 @@ public class Bot {
 //
 //        return null;
 //    }
+    private String getShootingDirection(){
+        String direction = null;
+
+
+        return null;
+    }
 
     private List<List<Cell>> constructFireDirectionLines(int range) {
         List<List<Cell>> directionLines = new ArrayList<>();
@@ -352,8 +364,8 @@ public class Bot {
         Cell chosenCell = null;
         boolean wormAtCenter;
 
-        for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++){
-            for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++){
+        for (int i = currentWorm.position.x - currentWorm.bananaBomb.range; i <= currentWorm.position.x + currentWorm.bananaBomb.range; i++){
+            for (int j = currentWorm.position.y - currentWorm.bananaBomb.range; j <= currentWorm.position.y + currentWorm.bananaBomb.range; j++){
                 wormAtCenter = false;
                 if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
                     List <Cell> affectedCells = getBananaAffectedCell(i,j);
@@ -381,11 +393,11 @@ public class Bot {
         return chosenCell;
     }
 
-    private Worm isSnowballFeasible(){
+    private Position isSnowballFeasible(){
         //HANYA BISA DIJALANIN SAMA TECHNOLOGIST
         Worm enemy = getFirstWormInSnowballRange();
 
-        if (enemy != null && currentWorm.snowball.count == 0){
+        if (enemy != null && currentWorm.snowball.count > 0){
             //Check ada worms kita atau engga di freeze radius
             boolean found = false;
             Worm[] myWorms = player.worms;
@@ -402,7 +414,7 @@ public class Bot {
             if(found){
                 return null;
             } else {
-                return enemy;
+                return enemy.position;
             }
             
         } else /*enemy = null*/ {
@@ -414,7 +426,7 @@ public class Bot {
         //HANYA BISA DIJALANIN SAMA AGENT
         Worm enemy = getFirstWormInBananaRange();
 
-        if (enemy != null && currentWorm.bananaBomb.count == 0){
+        if (enemy != null && currentWorm.bananaBomb.count > 0){
             //Check ada worms kita atau engga di damage radius
             boolean found = false;
             Worm[] myWorms = player.worms;

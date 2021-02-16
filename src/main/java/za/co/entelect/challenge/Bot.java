@@ -67,33 +67,36 @@ public class Bot {
             }
         }
 
-//        Kalo ada enemy yang bisa ditembak -> ditembak
+        // Kalo ada enemy yang bisa ditembak -> ditembak
         enemyWorm = getFirstWormInRange();
 
-//        Nyari health pack
+        // Nyari health pack
         Cell healthPackCell = searchPowerUp();
 
         if (enemyWorm != null) {
             Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
 
-            if(selectNewWorm) return new SelectCommand(currentWorm.id, new ShootCommand(direction));
+            if (selectNewWorm)
+                return new SelectCommand(currentWorm.id, new ShootCommand(direction));
             return new ShootCommand(direction);
-        } else if (healthPackCell != null){
-            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), healthPackCell.x, healthPackCell.y);
+        } else if (healthPackCell != null) {
+            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
+                    healthPackCell.x, healthPackCell.y);
         } else {
-            //        Nyari worm enemy yang paling deket
+            // Nyari worm enemy yang paling deket
             Worm closestEnemy = getClosestWorm();
 
-            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y), closestEnemy.position.x, closestEnemy.position.y);
+            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
+                    closestEnemy.position.x, closestEnemy.position.y);
         }
 
-
-
         if (chosenCell.type == CellType.AIR) {
-            if(selectNewWorm) return new SelectCommand(currentWorm.id, new MoveCommand(chosenCell.x, chosenCell.y));
+            if (selectNewWorm)
+                return new SelectCommand(currentWorm.id, new MoveCommand(chosenCell.x, chosenCell.y));
             return new MoveCommand(chosenCell.x, chosenCell.y);
         } else if (chosenCell.type == CellType.DIRT) {
-            if(selectNewWorm) return new SelectCommand(currentWorm.id, new DigCommand(chosenCell.x, chosenCell.y));
+            if (selectNewWorm)
+                return new SelectCommand(currentWorm.id, new DigCommand(chosenCell.x, chosenCell.y));
             return new DigCommand(chosenCell.x, chosenCell.y);
         }
 
@@ -139,12 +142,12 @@ public class Bot {
 //
 //        return null;
 //    }
-    private String getShootingDirection(){
-        String direction = null;
+    // private String getShootingDirection(){
+    //     String direction = null;
 
 
-        return null;
-    }
+    //     return null;
+    // }
 
     private List<List<Cell>> constructFireDirectionLines(int range) {
         List<List<Cell>> directionLines = new ArrayList<>();
@@ -298,9 +301,8 @@ public class Bot {
 
     private Worm getFirstWormInSnowballRange() {
         // HANYA BISA DIJALANIN SAMA TECHNOLOGIST
-        Set<String> cells = constructFireDirectionLines(currentWorm.snowball.range).stream()
-                .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
-                .collect(Collectors.toSet());
+        Set<String> cells = constructFireDirectionLines(currentWorm.snowball.range).stream().flatMap(Collection::stream)
+                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
 
         for (Worm enemyWorm : opponent.worms) {
             String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
@@ -328,26 +330,30 @@ public class Bot {
         return null;
     }
 
-    private Cell getSnowballTarget(){
+    private Cell getSnowballTarget() {
         Cell[][] blocks = gameState.map;
         int mostWormInRange = 0;
         Cell chosenCell = null;
 
-        for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++){
-            for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++){
-                if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
-                    List <Cell> affectedCells = getSurroundingCells(i, j);
+        for (int i = currentWorm.position.x - 5; i <= currentWorm.position.x + 5; i++) {
+            for (int j = currentWorm.position.y - 5; j <= currentWorm.position.y + 5; j++) {
+                if (isValidCoordinate(i, j)
+                        && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5) {
+                    List<Cell> affectedCells = getSurroundingCells(i, j);
                     affectedCells.add(blocks[j][i]);
                     int wormInRange = 0;
-                    for (Cell cell : affectedCells){
-                        for(Worm enemyWorm : opponent.worms){
-                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.roundsUntilUnfrozen == 0 && enemyWorm.health > 0) wormInRange++;
+                    for (Cell cell : affectedCells) {
+                        for (Worm enemyWorm : opponent.worms) {
+                            if (enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y
+                                    && enemyWorm.roundsUntilUnfrozen == 0 && enemyWorm.health > 0)
+                                wormInRange++;
                         }
-                        for(Worm myWorm : player.worms){
-                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0) wormInRange = -5;
+                        for (Worm myWorm : player.worms) {
+                            if (myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0)
+                                wormInRange = -5;
                         }
                     }
-                    if(wormInRange > mostWormInRange){
+                    if (wormInRange > mostWormInRange) {
                         mostWormInRange = wormInRange;
                         chosenCell = blocks[j][i];
                     }
@@ -358,7 +364,7 @@ public class Bot {
         return chosenCell;
     }
 
-    private Cell getBananaTarget(){
+    private Cell getBananaTarget() {
         Cell[][] blocks = gameState.map;
         int mostWormInRange = 0;
         Cell chosenCell = null;
@@ -367,23 +373,28 @@ public class Bot {
         for (int i = currentWorm.position.x - currentWorm.bananaBomb.range; i <= currentWorm.position.x + currentWorm.bananaBomb.range; i++){
             for (int j = currentWorm.position.y - currentWorm.bananaBomb.range; j <= currentWorm.position.y + currentWorm.bananaBomb.range; j++){
                 wormAtCenter = false;
-                if(isValidCoordinate(i,j) && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5){
-                    List <Cell> affectedCells = getBananaAffectedCell(i,j);
+                if (isValidCoordinate(i, j)
+                        && euclideanDistance(i, j, currentWorm.position.x, currentWorm.position.y) <= 5) {
+                    List<Cell> affectedCells = getBananaAffectedCell(i, j);
 
                     int wormInRange = 0;
-                    for (Cell cell : affectedCells){
-                        for(Worm enemyWorm : opponent.worms){
-                            if(enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y && enemyWorm.health > 0) wormInRange++;
-                            if(enemyWorm.position.x == i && enemyWorm.position.y == j) wormAtCenter = true;
+                    for (Cell cell : affectedCells) {
+                        for (Worm enemyWorm : opponent.worms) {
+                            if (enemyWorm.position.x == cell.x && enemyWorm.position.y == cell.y
+                                    && enemyWorm.health > 0)
+                                wormInRange++;
+                            if (enemyWorm.position.x == i && enemyWorm.position.y == j)
+                                wormAtCenter = true;
                         }
-                        for(Worm myWorm : player.worms){
-                            if(myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0) wormInRange = -5;
+                        for (Worm myWorm : player.worms) {
+                            if (myWorm.position.x == cell.x && myWorm.position.y == cell.y && myWorm.health > 0)
+                                wormInRange = -5;
                         }
                     }
-                    if(wormInRange > mostWormInRange){
+                    if (wormInRange > mostWormInRange) {
                         mostWormInRange = wormInRange;
                         chosenCell = blocks[j][i];
-                    } else if (wormInRange == mostWormInRange && wormAtCenter){
+                    } else if (wormInRange == mostWormInRange && wormAtCenter) {
                         chosenCell = blocks[j][i];
                     }
                 }
@@ -402,28 +413,29 @@ public class Bot {
             boolean found = false;
             Worm[] myWorms = player.worms;
             int i = 0;
-            while(!found && i < myWorms.length){
-                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
-                if(inRange <= currentWorm.snowball.freezeRadius){
+            while (!found && i < myWorms.length) {
+                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x,
+                        myWorms[i].position.y);
+                if (inRange <= currentWorm.snowball.freezeRadius) {
                     found = true;
                 } else {
                     i++;
                 }
             }
 
-            if(found){
+            if (found) {
                 return null;
             } else {
                 return enemy.position;
             }
-            
-        } else /*enemy = null*/ {
+
+        } else /* enemy = null */ {
             return null;
         }
     }
 
-    private Position isBananaFeasible(){
-        //HANYA BISA DIJALANIN SAMA AGENT
+    private Position isBananaFeasible() {
+        // HANYA BISA DIJALANIN SAMA AGENT
         Worm enemy = getFirstWormInBananaRange();
 
         if (enemy != null && currentWorm.bananaBomb.count > 0){
@@ -431,50 +443,53 @@ public class Bot {
             boolean found = false;
             Worm[] myWorms = player.worms;
             int i = 0;
-            while(!found && i < myWorms.length){
-                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x, myWorms[i].position.y);
-                if(inRange <= currentWorm.bananaBomb.damageRadius){
+            while (!found && i < myWorms.length) {
+                int inRange = euclideanDistance(enemy.position.x, enemy.position.y, myWorms[i].position.x,
+                        myWorms[i].position.y);
+                if (inRange <= currentWorm.bananaBomb.damageRadius) {
                     found = true;
                 } else {
                     i++;
                 }
             }
 
-            if(found){
+            if (found) {
                 return null;
             } else {
                 return enemy.position;
             }
-            
-        } else /*enemy = null*/ {
+
+        } else /* enemy = null */ {
             return null;
         }
     }
 
-    private boolean isClosestToCell(Cell block){
+    private boolean isClosestToCell(Cell block) {
         Worm closest = null;
         double closestDistance = 1000;
 
-        for (Worm worm : gameState.myPlayer.worms){
+        for (Worm worm : gameState.myPlayer.worms) {
             double distance = euclideanDistance(worm.position.x, worm.position.y, block.x, block.y);
-            if (distance < closestDistance && worm.health > 0) closest = worm;
+            if (distance < closestDistance && worm.health > 0)
+                closest = worm;
         }
 
         return currentWorm.id == closest.id;
     }
 
-    private Cell searchPowerUp(){
-        for(Cell[] row : gameState.map){
-            for (Cell column : row){
-                if(column.powerUp != null) return column;
+    private Cell searchPowerUp() {
+        for (Cell[] row : gameState.map) {
+            for (Cell column : row) {
+                if (column.powerUp != null)
+                    return column;
             }
         }
 
         return null;
     }
 
-    //    Dari surrounding cells, dipilih cell buat move/dig
-    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY){
+    // Dari surrounding cells, dipilih cell buat move/dig
+    private Cell chooseCell(List<Cell> surroundingCells, int destinationX, int destinationY) {
         boolean diagonalChosen = false;
 
         Cell chosenCell = surroundingCells.get(0);
@@ -496,21 +511,22 @@ public class Bot {
         return chosenCell;
     }
 
-    private Worm getClosestWorm(){
+    private Worm getClosestWorm() {
         Worm closestEnemy = null;
         double closestDistance = 1000;
 
-        for (Worm enemyWorms : opponent.worms){
-            if(enemyWorms.health > 0){
-                double distance  = 0;
+        for (Worm enemyWorms : opponent.worms) {
+            if (enemyWorms.health > 0) {
+                double distance = 0;
 
-                for(Worm myWorm : player.worms){
-                    if (myWorm.health > 0){
-                        distance += euclideanDistance(currentWorm.position.x, currentWorm.position.y, enemyWorms.position.x, enemyWorms.position.y);
+                for (Worm myWorm : player.worms) {
+                    if (myWorm.health > 0) {
+                        distance += euclideanDistance(currentWorm.position.x, currentWorm.position.y,
+                                enemyWorms.position.x, enemyWorms.position.y);
                     }
                 }
 
-                if(distance < closestDistance){
+                if (distance < closestDistance) {
                     closestDistance = distance;
                     closestEnemy = enemyWorms;
                 }
@@ -532,6 +548,47 @@ public class Bot {
         }
 
         return cells;
+    }
+
+    // Kalo mau ngeshoot dicek dulu di arah itu ada worms kita ga.
+    // Kalo fungsi ini true, berarti ga aman
+    private boolean isMyWormInShootingRange(Direction d) {
+        MyWorm currentWorm = getCurrentWorm(gameState);
+        // direction N(0, -1), NE(1, -1), E(1, 0), SE(1, 1), S(0, 1), SW(-1, 1), W(-1,0), NW(-1, -1)
+        Worm[] myWorms = player.worms;
+        int i = 0;
+        boolean found = false;
+        while ((i < myWorms.length) && (!found)) {
+            int weaponRange = currentWorm.weapon.range;
+            if ((d.name() == "N") && (currentWorm.position.y - weaponRange < myWorms[i].position.y && currentWorm.position.x == myWorms[i].position.x)) {
+                found = true;
+            }
+            else if ((d.name() == "E") && (currentWorm.position.x + weaponRange < myWorms[i].position.x && currentWorm.position.y == myWorms[i].position.y)) {
+                found = true;
+            }
+            else if ((d.name() == "S") && (currentWorm.position.y + weaponRange < myWorms[i].position.y && currentWorm.position.x == myWorms[i].position.x)) {
+                found = true;
+            }   
+            else if ((d.name() == "W") && (currentWorm.position.x - weaponRange < myWorms[i].position.x && currentWorm.position.y == myWorms[i].position.y)) {
+                found = true;
+            }    
+            else if ((d.name() == "NE") && (currentWorm.position.x + weaponRange < myWorms[i].position.x && currentWorm.position.y - weaponRange < myWorms[i].position.y)) {
+                found = true;
+            }
+            else if ((d.name() == "SE") && (currentWorm.position.x + weaponRange < myWorms[i].position.x && currentWorm.position.y + weaponRange < myWorms[i].position.y)) {
+                found = true;
+            }
+            else if ((d.name() == "SW") && (currentWorm.position.x - weaponRange < myWorms[i].position.x && currentWorm.position.y + weaponRange < myWorms[i].position.y)) {
+                found = true;
+            }
+            else if ((d.name() == "NW") && (currentWorm.position.x - weaponRange < myWorms[i].position.x && currentWorm.position.y - weaponRange < myWorms[i].position.y)) {
+                found = true;
+            }
+            else {
+                i++;
+            }
+        }
+        return found;
     }
 
     /*

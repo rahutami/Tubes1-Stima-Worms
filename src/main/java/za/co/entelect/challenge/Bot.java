@@ -525,15 +525,4 @@ public class Bot {
         return null;
     }
 
-
-    /*
-     * TODO Fungsi kelayakan, pengecekan untuk tidak melakukan invalid command.
-     * bingung parameternya hehe, yang penting gunain isCellOccupied, isDirt,
-     * isDeepSpace Worms gabisa gerak ke cell yg ga adjacent -> udah ada
-     * getSurroundingCells Worms cannot move to cells occupied by another worm Worms
-     * cannot move to dirt or deep space cells
-     */
-    // private boolean isMoveValid
-
 }
-// cd src/main/java/za/co/entelect/challenge

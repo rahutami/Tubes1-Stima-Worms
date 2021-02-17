@@ -3,8 +3,8 @@ Section lines count: 11
 Current round: 166
 Max rounds: 400
 Map size: 33
-Current worm id: 2
-Consecutive do nothing count: 1
+Current worm id: 1
+Consecutive do nothing count: 0
 Players count: 2
 Worms per player: 3
 Pushback damage: 20
@@ -13,17 +13,17 @@ Lava damage: 3
 @02 My Player
 Section lines count: 66
 Player id: 1
-Score: 896
-Selection Tokens: 5
-Previous Command: nothing "Player chose to do nothing"
-Health: 33
-Current Worm: 2
+Score: 1284
+Selection Tokens: 0
+Previous Command: shoot W
+Health: 270
+Current Worm: 1
 Worms: 
 
 Worm id: 1
-Health: -4
-Position x: 16
-Position y: 14
+Health: 160
+Position x: 8
+Position y: 8
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -40,9 +40,9 @@ Snowballs count: null
 Snowballs freeze radius: null
 
 Worm id: 2
-Health: 33
-Position x: 8
-Position y: 8
+Health: 110
+Position x: 26
+Position y: 15
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -61,7 +61,7 @@ Snowballs freeze radius: null
 Worm id: 3
 Health: -4
 Position x: 14
-Position y: 13
+Position y: 27
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -80,34 +80,34 @@ Snowballs freeze radius: 1
 @03 Opponents
 Section lines count: 37
 Player id: 2
-Score: 1497
-Selection Tokens: 0
-Previous Command: dig 8 9
+Score: 1401
+Selection Tokens: 1
+Previous Command: move 24 16
 Current Worm: 1
 Worms: 
 
 Worm id: 1
-Health: 129
-Position x: 9
-Position y: 8
+Health: 46
+Position x: 16
+Position y: 26
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
 Profession: Commando
 
 Worm id: 2
-Health: 100
+Health: 43
 Position x: 9
-Position y: 7
+Position y: 9
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
 Profession: Agent
 
 Worm id: 3
-Health: 100
-Position x: 9
-Position y: 10
+Health: 56
+Position x: 24
+Position y: 16
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -129,36 +129,36 @@ WORM_MARKER: 13 Example for:Player1, Worm3
 
 @06 World Map
 Section lines count: 35
-██████████████████████XXXXXX▓▓▓▓▓▓▓▓▓▓XXXXXX██████████████████████
-████████████████XXXXXX▓▓XXXXXX▓▓XX▓▓XXXXXX▓▓XXXXXX████████████████
-██████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████
-████████████▓▓XXXXXX▓▓XXXX▓▓▓▓XXXXXX▓▓▓▓XXXX▓▓XXXXXX▓▓████████████
-████████▓▓▓▓▓▓XXXXXX▓▓XXXXXXXXXXXXXXXXXXXXXX▓▓XXXXXX▓▓▓▓▓▓████████
-████████▓▓▓▓▓▓XXXXXX▓▓XX░░░░░░▓▓▓▓▓▓░░░░░░XX▓▓XXXXXX▓▓▓▓▓▓████████
-██████XXXXXX▓▓▓▓▓▓▓▓░░▓▓▓▓░░░░▓▓▓▓▓▓░░░░▓▓▓▓░░▓▓▓▓▓▓▓▓XXXXXX██████
-████▓▓▓▓XXXXXXXX▓▓22░░░░▓▓░░░░░░░░░░░░░░▓▓░░░░░░▓▓▓▓XXXXXX▓▓▓▓████
-██▓▓▓▓XXXXXXXX▓▓1221░░░░░░▓▓▓▓░░░░░░░░▓▓░░░░░░▓▓▓▓▓▓XXXXXXXX▓▓▓▓██
-██▓▓▓▓▓▓XX▓▓▓▓░░░░░░░░░░▓▓░░▓▓▓▓░░░░░░░░▓▓░░░░▓▓▓▓░░▓▓▓▓XX▓▓▓▓▓▓██
-██XX▓▓▓▓XX▓▓▓▓░░░░23░░░░░░░░░░▓▓░░░░░░░░░░▓▓▓▓▓▓░░░░▓▓▓▓XX▓▓▓▓XX██
-▓▓▓▓XX▓▓▓▓▓▓▓▓░░░░▓▓░░░░░░░░░░░░░░░░░░░░▓▓░░░░▓▓░░░░▓▓▓▓▓▓▓▓XX▓▓▓▓
-▓▓▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓░░░░▓▓▓▓▓▓▓▓▓▓▓▓
-XX▓▓▓▓▓▓XX▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓▓▓▓▓XX▓▓▓▓▓▓XX
-▓▓▓▓▓▓▓▓XX▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░▓▓░░░░░░░░░░░░▓▓▓▓▓▓XX▓▓▓▓▓▓▓▓
-XXXXXXXXXX░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓XX▓▓XXXXXX
-XXXXXX▓▓XX▓▓▓▓░░░░░░░░▓▓▓▓░░░░▓▓░░░░░░░░▓▓▓▓░░░░░░░░▓▓▓▓XX▓▓XXXXXX
-XXXXXX▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓▓▓░░░░▓▓▓▓░░▓▓▓▓▓▓▓▓░░░░░░░░░░XXXXXXXXXX
-▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░▓▓░░░░░░░░░░▓▓░░░░░░░░░░▓▓░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓
-XXXX▓▓▓▓XX░░░░░░░░░░░░░░░░░░░░░░▓▓░░░░░░░░░░░░░░░░░░░░░░XX▓▓▓▓XXXX
-XXXX▓▓XXXX░░░░░░░░░░░░░░░░▓▓░░░░░░░░░░▓▓░░░░░░░░░░░░░░░░XXXX▓▓XXXX
-XX▓▓▓▓XXXXXX▓▓▓▓▓▓░░░░░░▓▓░░░░░░░░░░░░░░▓▓░░░░░░▓▓▓▓▓▓XXXXXX▓▓▓▓XX
-██▓▓▓▓XXXXXX░░▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓░░XXXXXX▓▓▓▓██
-██▓▓▓▓XXXXXX▓▓▓▓░░░░▓▓▓▓▓▓░░░░░░▓▓▓▓░░░░▓▓▓▓▓▓░░░░▓▓▓▓XXXXXX▓▓▓▓██
-██▓▓▓▓▓▓▓▓XX▓▓XX░░░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓░░░░░░XX▓▓XX▓▓▓▓▓▓▓▓██
-████▓▓▓▓▓▓XXXXXXXX░░░░░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░░░░░XXXXXXXX▓▓▓▓▓▓████
-██████▓▓▓▓XX▓▓▓▓▓▓▓▓░░░░▓▓░░░░░░░░░░░░░░▓▓░░░░▓▓▓▓▓▓▓▓XX▓▓▓▓██████
-████████▓▓▓▓▓▓XXXXXX▓▓XX░░░░░░░░░░░░░░░░░░XX▓▓XXXXXX▓▓▓▓▓▓████████
-████████XX▓▓▓▓XXXXXX▓▓XX▓▓▓▓XXXXXXXXXX▓▓▓▓XX▓▓XXXXXX▓▓▓▓XX████████
-████████████▓▓XXXXXX▓▓XXXX▓▓XXXXXXXXXX▓▓XXXX▓▓XXXXXX▓▓████████████
-██████████████▓▓▓▓▓▓▓▓▓▓XXXXXXXXXXXXXXXXXX▓▓▓▓▓▓▓▓▓▓██████████████
-████████████████XX▓▓▓▓▓▓▓▓XXXX▓▓▓▓▓▓XXXX▓▓▓▓▓▓▓▓XX████████████████
-██████████████████████▓▓▓▓XX▓▓▓▓▓▓▓▓▓▓XX▓▓▓▓██████████████████████
+██████████████████████XX▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓XX██████████████████████
+████████████████XXXXXXXX▓▓XXXX▓▓XX▓▓XXXX▓▓XXXXXXXX████████████████
+██████████████▓▓XXXXXXXX▓▓XXXXXXXX▓▓XXXX▓▓▓▓▓▓▓▓▓▓▓▓██████████████
+████████████▓▓XXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓XX▓▓XXXXXX▓▓████████████
+████████XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓▓▓XXXXXX▓▓XXXX████████
+████████XXXXXXXXXXXXXXXX░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓▓▓XX████████
+██████XXXXXXXXXXXXXX░░░░░░░░░░▓▓░░▓▓▓▓▓▓░░▓▓░░▓▓▓▓▓▓▓▓▓▓XXXX██████
+████▓▓XXXXXXXXXXXX░░░░░░░░░░░░░░░░░░░░▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓XXXX▓▓████
+██▓▓▓▓▓▓▓▓▓▓XXXX11░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░XXXX▓▓▓▓▓▓▓▓▓▓██
+██XXXXXX▓▓▓▓XX░░░░22▓▓░░░░▓▓░░░░░░░░░░░░░░░░▓▓▓▓░░░░XXXX▓▓XXXXXX██
+██▓▓XXXXXXXX░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓░░▓▓▓▓░░▓▓▓▓▓▓░░░░XXXXXXXX▓▓██
+▓▓▓▓XX▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓░░▓▓░░▓▓░░░░░░░░░░░░░░░░XXXXXXXX▓▓▓▓
+XX▓▓XX▓▓▓▓▓▓░░░░░░░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓░░░░░░░░░░░░░░░░XXXXXX▓▓XX
+XX▓▓XXXX▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓░░░░░░░░░░░░XXXXXX▓▓XX
+▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░░░░░XXXXXXXX▓▓
+XXXXXXXXXX░░░░░░░░░░░░░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓░░░░░░12░░XXXXXXXXXX
+XXXXXX▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓░░▓▓▓▓░░▓▓▓▓▓▓░░░░▓▓▓▓░░23▓▓░░░░XXXXXXXXXX
+XXXXXX▓▓XX░░▓▓▓▓░░░░▓▓▓▓░░░░▓▓▓▓░░▓▓░░▓▓░░▓▓▓▓░░░░▓▓▓▓░░XXXXXXXXXX
+▓▓▓▓▓▓▓▓XX░░▓▓▓▓░░░░░░▓▓░░░░░░░░▓▓░░░░░░░░▓▓░░░░░░▓▓▓▓░░XX▓▓▓▓▓▓▓▓
+▓▓XXXX▓▓XX▓▓░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓XX▓▓XXXX▓▓
+▓▓▓▓XXXX▓▓▓▓▓▓░░░░░░▓▓░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░▓▓░░░░░░▓▓▓▓▓▓XXXX▓▓▓▓
+▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓
+██XXXX▓▓▓▓▓▓▓▓▓▓░░▓▓░░░░░░░░░░▓▓░░▓▓░░░░░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓XXXX██
+██▓▓▓▓▓▓XX▓▓XX░░░░▓▓░░░░░░░░░░▓▓░░▓▓░░░░░░░░░░▓▓░░░░XX▓▓XX▓▓▓▓▓▓██
+██▓▓▓▓XXXXXXXXXX░░░░░░░░░░░░░░▓▓░░▓▓▓▓▓▓░░░░░░░░░░XXXXXXXXXX▓▓▓▓██
+████▓▓XXXX▓▓▓▓XXXX░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓XXXX▓▓▓▓XXXX▓▓████
+██████XXXX▓▓▓▓▓▓XXXX░░░░░░░░░░░░21░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓XXXX██████
+████████▓▓▓▓▓▓XXXXXXXXXX░░░░░░░░░░░░░░░░░░XX▓▓XXXXXX▓▓▓▓▓▓████████
+████████▓▓▓▓▓▓XXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓XX▓▓XXXXXX▓▓▓▓▓▓████████
+████████████▓▓XXXXXXXXXXXXXX▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓████████████
+██████████████▓▓▓▓XXXXXXXXXXXXXX▓▓XXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████
+████████████████XXXXXXXXXXXXXXXX▓▓XXXX▓▓XX▓▓▓▓▓▓XX████████████████
+██████████████████████XXXXXX▓▓▓▓▓▓▓▓▓▓XXXX▓▓██████████████████████

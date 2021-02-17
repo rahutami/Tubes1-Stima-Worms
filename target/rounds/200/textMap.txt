@@ -3,7 +3,11 @@ Section lines count: 11
 Current round: 200
 Max rounds: 400
 Map size: 33
+<<<<<<< HEAD
 Current worm id: 2
+=======
+Current worm id: 1
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Consecutive do nothing count: 0
 Players count: 2
 Worms per player: 3
@@ -13,6 +17,7 @@ Lava damage: 3
 @02 My Player
 Section lines count: 66
 Player id: 1
+<<<<<<< HEAD
 Score: 1494
 Selection Tokens: 0
 Previous Command: shoot SW
@@ -22,6 +27,17 @@ Worms:
 
 Worm id: 1
 Health: 160
+=======
+Score: 1514
+Selection Tokens: 0
+Previous Command: shoot NW
+Health: 243
+Current Worm: 1
+Worms: 
+
+Worm id: 1
+Health: 133
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Position x: 12
 Position y: 8
 Digging range: 1
@@ -41,8 +57,13 @@ Snowballs freeze radius: null
 
 Worm id: 2
 Health: 110
+<<<<<<< HEAD
 Position x: 13
 Position y: 7
+=======
+Position x: 24
+Position y: 21
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -60,8 +81,13 @@ Snowballs freeze radius: null
 
 Worm id: 3
 Health: -4
+<<<<<<< HEAD
 Position x: 9
 Position y: 21
+=======
+Position x: 14
+Position y: 27
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -80,24 +106,41 @@ Snowballs freeze radius: 1
 @03 Opponents
 Section lines count: 37
 Player id: 2
+<<<<<<< HEAD
 Score: 1566
 Selection Tokens: 0
 Previous Command: move 13 16
 Current Worm: 2
+=======
+Score: 1567
+Selection Tokens: 0
+Previous Command: move 23 19
+Current Worm: 1
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Worms: 
 
 Worm id: 1
 Health: 46
+<<<<<<< HEAD
 Position x: 13
 Position y: 16
+=======
+Position x: 17
+Position y: 23
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
 Profession: Commando
 
 Worm id: 2
+<<<<<<< HEAD
 Health: 52
 Position x: 11
+=======
+Health: 3
+Position x: 14
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Position y: 9
 Digging range: 1
 Movement range: 1
@@ -105,9 +148,15 @@ Rounds until unfrozen: 0
 Profession: Agent
 
 Worm id: 3
+<<<<<<< HEAD
 Health: -6
 Position x: 23
 Position y: 14
+=======
+Health: 24
+Position x: 23
+Position y: 19
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d
 Digging range: 1
 Movement range: 1
 Rounds until unfrozen: 0
@@ -129,6 +178,7 @@ WORM_MARKER: 13 Example for:Player1, Worm3
 
 @06 World Map
 Section lines count: 35
+<<<<<<< HEAD
 ██████████████████████XX▓▓XX▓▓▓▓▓▓▓▓▓▓XX▓▓XX██████████████████████
 ████████████████XXXXXXXXXXXXXX▓▓XX▓▓XXXXXXXXXX▓▓▓▓████████████████
 ██████████████XXXXXXXXXXXXXXXX▓▓▓▓▓▓XXXX▓▓XX▓▓▓▓▓▓▓▓██████████████
@@ -162,3 +212,38 @@ XXXXXX▓▓▓▓▓▓XX░░░░░░░░░░░░░░▓▓▓▓
 ██████████████▓▓▓▓▓▓▓▓XXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓XXXX▓▓▓▓▓▓▓▓██████████████
 ████████████████▓▓▓▓XXXXXXXX▓▓▓▓▓▓▓▓▓▓XXXXXXXX▓▓▓▓████████████████
 ██████████████████████XXXX▓▓▓▓XX▓▓XX▓▓▓▓XXXX██████████████████████
+=======
+██████████████████████XX▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓XX██████████████████████
+████████████████XXXXXXXX▓▓XXXX▓▓XX▓▓XXXX▓▓XXXXXXXX████████████████
+██████████████▓▓XXXXXXXX▓▓XXXXXXXX▓▓XXXX▓▓▓▓▓▓▓▓▓▓▓▓██████████████
+████████████▓▓XXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓XX▓▓XXXXXX▓▓████████████
+████████XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓▓▓XXXXXX▓▓XXXX████████
+████████XXXXXXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓▓▓XX████████
+██████XXXXXXXXXXXXXXXXXXXXXXXX▓▓XX▓▓▓▓▓▓XX▓▓XX▓▓▓▓▓▓▓▓▓▓XXXX██████
+████▓▓XXXXXXXXXXXXXXXXXXXX░░░░░░░░░░░░▓▓XXXX▓▓XX▓▓▓▓▓▓▓▓XXXX▓▓████
+██▓▓▓▓▓▓▓▓▓▓XXXXXXXXXX░░11░░░░░░░░░░░░░░░░░░▓▓▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓██
+██XXXXXX▓▓▓▓XXXXXXXX░░░░░░▓▓22░░░░░░░░░░░░░░▓▓▓▓XXXXXXXX▓▓XXXXXX██
+██▓▓XXXXXXXXXX▓▓▓▓▓▓░░░░▓▓▓▓▓▓░░▓▓▓▓░░▓▓▓▓░░▓▓▓▓▓▓XXXXXXXXXXXX▓▓██
+▓▓▓▓XX▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░▓▓░░▓▓░░▓▓░░░░░░░░░░░░XXXXXXXXXXXX▓▓▓▓
+XX▓▓XX▓▓▓▓▓▓XXXX░░░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓░░░░░░░░░░XXXXXXXXXXXX▓▓XX
+XX▓▓XXXX▓▓▓▓XX░░░░░░▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓░░░░░░░░XXXXXXXXXX▓▓XX
+▓▓▓▓▓▓▓▓▓▓▓▓XX░░░░▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░▓▓▓▓░░░░XXXXXXXXXXXX▓▓
+XXXXXXXXXXXXXX░░░░░░░░░░░░▓▓░░▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓░░░░░░XXXXXXXXXXXXXX
+XXXXXX▓▓▓▓▓▓▓▓▓▓░░░░▓▓▓▓░░▓▓▓▓░░▓▓▓▓▓▓░░░░▓▓▓▓░░░░░░XXXXXXXXXXXXXX
+XXXXXX▓▓XXXX▓▓▓▓░░░░▓▓▓▓░░░░▓▓▓▓░░▓▓░░▓▓░░▓▓▓▓░░░░░░▓▓XXXXXXXXXXXX
+▓▓▓▓▓▓▓▓XXXX▓▓▓▓░░░░░░▓▓░░░░░░░░▓▓░░░░░░░░▓▓░░░░░░▓▓▓▓XXXX▓▓▓▓▓▓▓▓
+▓▓XXXX▓▓XX▓▓XX░░░░░░░░░░▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░23░░░░XX▓▓XX▓▓XXXX▓▓
+▓▓▓▓XXXX▓▓▓▓▓▓XX░░░░▓▓░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░▓▓░░░░XX▓▓▓▓▓▓XXXX▓▓▓▓
+▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓░░░░░░▓▓▓▓░░░░▓▓░░12▓▓▓▓▓▓▓▓XXXXXX▓▓
+██XXXX▓▓▓▓▓▓▓▓▓▓XX▓▓░░░░░░░░░░▓▓░░▓▓░░░░░░▓▓▓▓▓▓XX▓▓▓▓▓▓▓▓▓▓XXXX██
+██▓▓▓▓▓▓XX▓▓XXXXXX▓▓░░░░░░░░░░▓▓░░21░░░░░░░░░░▓▓XXXXXX▓▓XX▓▓▓▓▓▓██
+██▓▓▓▓XXXXXXXXXXXXXXXX░░░░░░░░▓▓░░░░░░░░░░░░XXXXXXXXXXXXXXXX▓▓▓▓██
+████▓▓XXXX▓▓▓▓XXXXXXXXXXXX░░░░░░░░░░░░░░▓▓XX▓▓▓▓XXXX▓▓▓▓XXXX▓▓████
+██████XXXX▓▓▓▓▓▓XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓▓▓▓▓XXXX██████
+████████▓▓▓▓▓▓XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX▓▓XXXXXX▓▓▓▓▓▓████████
+████████▓▓▓▓▓▓XXXXXXXXXXXXXXXXXXXXXX▓▓▓▓▓▓XX▓▓XXXXXX▓▓▓▓▓▓████████
+████████████▓▓XXXXXXXXXXXXXX▓▓XXXXXX▓▓▓▓▓▓▓▓▓▓XXXXXX▓▓████████████
+██████████████▓▓▓▓XXXXXXXXXXXXXX▓▓XXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████████████
+████████████████XXXXXXXXXXXXXXXX▓▓XXXX▓▓XX▓▓▓▓▓▓XX████████████████
+██████████████████████XXXXXX▓▓▓▓▓▓▓▓▓▓XXXX▓▓██████████████████████
+>>>>>>> e6e79fca286421fbb1e2997227137a3220cb993d

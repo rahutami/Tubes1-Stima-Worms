@@ -50,56 +50,77 @@ public class Bot {
         ArrayList<Worm> enemyWorms;
         boolean selectNewWorm = false;
 
-        if(currentWorm.roundsUntilUnfrozen > 0 && player.remainingWormSelections > 0) selectNewWorm = changeWorm();
-        if(currentWorm.id == 2 && currentWorm.bananaBomb.count > 0){ //Worm 2 --> Worm yang punya bananabomb
-            Cell bananaTarget = getBananaTarget();
+//        Jika cell yang ditempati worm bertipe lava maka worm akan pindah
+        if(gameState.map[currentWorm.position.y][currentWorm.position.x].type == CellType.LAVA){
+            chosenCell = escapeLava();
+        }else{
+//            Jika currentWorm frozen (tidak bisa melakukan command) dan remainingwormselections > 0 --> ganti worm
+            if (currentWorm.roundsUntilUnfrozen > 0 && player.remainingWormSelections > 0) selectNewWorm = changeWorm();
 
-            if(bananaTarget != null){
-                if(selectNewWorm) return new SelectCommand(currentWorm.id, new BananaCommand(bananaTarget.x, bananaTarget.y));
-                return new BananaCommand(bananaTarget.x, bananaTarget.y);
+//            Jika id Worm = 2, banana bomb belum habis, dan terdapat worm lawan di range banana bomb maka banana bomb dilemparkan
+            if (currentWorm.id == 2 && currentWorm.bananaBomb.count > 0) {
+                Cell bananaTarget = getBananaTarget();
+
+                if (bananaTarget != null) {
+                    if (selectNewWorm)
+                        return new SelectCommand(currentWorm.id, new BananaCommand(bananaTarget.x, bananaTarget.y));
+                    return new BananaCommand(bananaTarget.x, bananaTarget.y);
+                }
+
+//            Jika id Worm = 3, snowball belum habis, dan terdapat worm lawan di range snowball yg tidak beku maka snowball dilemparkan
+            } else if (currentWorm.id == 3 && currentWorm.snowball.count > 0) { //Worm 3 --> Worm yang punya snowball
+                Cell snowballTarget = getSnowballTarget();
+
+                if (snowballTarget != null) {
+                    if (selectNewWorm)
+                        return new SelectCommand(currentWorm.id, new SnowballCommand(snowballTarget.x, snowballTarget.y));
+                    return new SnowballCommand(snowballTarget.x, snowballTarget.y);
+                }
             }
-        } else if (currentWorm.id == 3 && currentWorm.snowball.count > 0){ //Worm 3 --> Worm yang punya snowball
-            Cell snowballTarget = getSnowballTarget();
 
-            if(snowballTarget != null) {
-                if(selectNewWorm) return new SelectCommand(currentWorm.id, new SnowballCommand(snowballTarget.x, snowballTarget.y));
-                return new SnowballCommand(snowballTarget.x, snowballTarget.y);
+//          Mencari apakah ada worm lawan di shooting range
+            enemyWorms = getFirstWormInRange();
+
+//          Mencari apakah health pack masih ada di peta
+            Cell healthPackCell = searchPowerUp();
+
+//            Jika ada worm lawan di shooting range, maka tembak worm tersebut
+            if (enemyWorms.size() > 0) {
+                Direction direction = resolveDirection(currentWorm.position, getPositionWormMinHealth(enemyWorms));
+                if (!isMyWormInShootingRange(direction)) {
+                    if (selectNewWorm)
+                        return new SelectCommand(currentWorm.id, new ShootCommand(direction));
+                    return new ShootCommand(direction);
+                }
+                chosenCell = searchEmptySurrounding();
+
+//                Jika masih ada health pack di peta, pilih cell sekitar yang menuju health pack
+            } else if (healthPackCell != null) {
+                chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
+                        healthPackCell.x, healthPackCell.y);
+            } else {
+                // Mencari worm enemy yang paling deket dari semua worm pemain
+                Worm closestEnemy = getClosestWorm();
+
+//                Memilih cell yang menuju ke worm lawan yang telah dipilih
+                chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
+                        closestEnemy.position.x, closestEnemy.position.y);
             }
         }
 
-        // Kalo ada enemy yang bisa ditembak -> ditembak
-        enemyWorms = getFirstWormInRange();
-
-        // Nyari health pack
-        Cell healthPackCell = searchPowerUp();
-
-        if (enemyWorms.size() > 0) {
-            Direction direction = resolveDirection(currentWorm.position, getPositionWormMinHealth(enemyWorms));
-            if(!isMyWormInShootingRange(direction)){
+        if(chosenCell != null) {
+//            Jika cell terpilih bertipe AIR --> move
+            if (chosenCell.type == CellType.AIR) {
                 if (selectNewWorm)
-                    return new SelectCommand(currentWorm.id, new ShootCommand(direction));
-                return new ShootCommand(direction);
+                    return new SelectCommand(currentWorm.id, new MoveCommand(chosenCell.x, chosenCell.y));
+                return new MoveCommand(chosenCell.x, chosenCell.y);
             }
-            chosenCell = searchEmptySurrounding();
-        }else if (healthPackCell != null) {
-            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
-                    healthPackCell.x, healthPackCell.y);
-        } else {
-            // Nyari worm enemy yang paling deket
-            Worm closestEnemy = getClosestWorm();
-
-            chosenCell = chooseCell(getSurroundingCells(currentWorm.position.x, currentWorm.position.y),
-                    closestEnemy.position.x, closestEnemy.position.y);
-        }
-
-        if (chosenCell.type == CellType.AIR) {
-            if (selectNewWorm)
-                return new SelectCommand(currentWorm.id, new MoveCommand(chosenCell.x, chosenCell.y));
-            return new MoveCommand(chosenCell.x, chosenCell.y);
-        } else if (chosenCell.type == CellType.DIRT) {
-            if (selectNewWorm)
-                return new SelectCommand(currentWorm.id, new DigCommand(chosenCell.x, chosenCell.y));
-            return new DigCommand(chosenCell.x, chosenCell.y);
+//            Jika cell terpilih bertipe DIRT --> dig
+            else if (chosenCell.type == CellType.DIRT) {
+                if (selectNewWorm)
+                    return new SelectCommand(currentWorm.id, new DigCommand(chosenCell.x, chosenCell.y));
+                return new DigCommand(chosenCell.x, chosenCell.y);
+            }
         }
 
         return new DoNothingCommand();
@@ -209,6 +230,10 @@ public class Bot {
         return (c.type == CellType.DIRT);
     }
 
+    private boolean isLava(Cell c) {
+        return (c.type == CellType.LAVA);
+    }
+
     private boolean isDeepSpace(Cell c) {
         return (c.type == CellType.DEEP_SPACE);
     }
@@ -239,12 +264,12 @@ public class Bot {
     }
 
     // Cek apakah cell surrounded by dirt
-    private boolean isSurroundedByDirt(Cell c) {
-        List<Cell> surrounding = getSurroundingCells(c.x, c.y);
+    private boolean isSurroundedByDirtAndLava() {
+        List<Cell> surrounding = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
         int i = 0;
         boolean isAllDirt = true;
-        while (i < surrounding.size() && (!isAllDirt)) {
-            if (!isDirt(surrounding.get(i))) {
+        while (i < surrounding.size() && (isAllDirt)) {
+            if (!isDirt(surrounding.get(i)) && !isLava(surrounding.get(i))) {
                 isAllDirt = false;
             } else {
                 i++;
@@ -254,11 +279,11 @@ public class Bot {
     }
 
     // Cek apakah cell surrounded by deep space
-    private boolean isSurroundedByDeepSpace(Cell c) {
-        List<Cell> surrounding = getSurroundingCells(c.x, c.y);
+    private boolean isSurroundedByDeepSpace() {
+        List<Cell> surrounding = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
         int i = 0;
         boolean isAllDeepSpace = true;
-        while (i < surrounding.size() && (!isAllDeepSpace)) {
+        while (i < surrounding.size() && (isAllDeepSpace)) {
             if (!isDeepSpace(surrounding.get(i))) {
                 isAllDeepSpace = false;
             } else {
@@ -280,37 +305,7 @@ public class Bot {
         return (wormWithMinHealth.position);
     }
 
-    private Worm getFirstWormInSnowballRange() {
-        // HANYA BISA DIJALANIN SAMA TECHNOLOGIST
-        Set<String> cells = constructFireDirectionLines(currentWorm.snowball.range).stream().flatMap(Collection::stream)
-                .map(cell -> String.format("%d_%d", cell.x, cell.y)).collect(Collectors.toSet());
-
-        for (Worm enemyWorm : opponent.worms) {
-            String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
-            if (cells.contains(enemyPosition)) {
-                return enemyWorm;
-            }
-        }
-
-        return null;
-    }
-
-    private Worm getFirstWormInBananaRange() {
-        // HANYA BISA DIJALANIN SAMA AGENT
-        Set<String> cells = constructFireDirectionLines(currentWorm.bananaBomb.range).stream()
-                .flatMap(Collection::stream).map(cell -> String.format("%d_%d", cell.x, cell.y))
-                .collect(Collectors.toSet());
-
-        for (Worm enemyWorm : opponent.worms) {
-            String enemyPosition = String.format("%d_%d", enemyWorm.position.x, enemyWorm.position.y);
-            if (cells.contains(enemyPosition)) {
-                return enemyWorm;
-            }
-        }
-
-        return null;
-    }
-
+    //    Mencari target untuk dilempar snowball
     private Cell getSnowballTarget() {
         Cell[][] blocks = gameState.map;
         int mostWormInRange = 0;
@@ -345,6 +340,7 @@ public class Bot {
         return chosenCell;
     }
 
+//    Mencari target untuk dilempar banana bomb
     private Cell getBananaTarget() {
         Cell[][] blocks = gameState.map;
         int mostWormInRange = 0;
@@ -385,19 +381,7 @@ public class Bot {
         return chosenCell;
     }
 
-    private boolean isClosestToCell(Cell block) {
-        Worm closest = null;
-        double closestDistance = 1000;
-
-        for (Worm worm : gameState.myPlayer.worms) {
-            double distance = euclideanDistance(worm.position.x, worm.position.y, block.x, block.y);
-            if (distance < closestDistance && worm.health > 0)
-                closest = worm;
-        }
-
-        return currentWorm.id == closest.id;
-    }
-
+//    Mencari cell yang terdapat power up
     private Cell searchPowerUp() {
         for (Cell[] row : gameState.map) {
             for (Cell column : row) {
@@ -432,6 +416,7 @@ public class Bot {
         return chosenCell;
     }
 
+//    Mencari worm lawan yang paling dekat dengan worm pemain
     private Worm getClosestWorm() {
         Worm closestEnemy = null;
         double closestDistance = 1000;
@@ -457,6 +442,7 @@ public class Bot {
         return closestEnemy;
     }
 
+//    Mencari cell yang terkena damage dari banana bomb
     private List<Cell> getBananaAffectedCell(int x, int y) {
         ArrayList<Cell> cells = new ArrayList<>();
         for (int i = x - 2; i <= x + 2; i++) {
@@ -471,8 +457,7 @@ public class Bot {
         return cells;
     }
 
-    // Kalo mau ngeshoot dicek dulu di arah itu ada worms kita ga.
-    // Kalo fungsi ini true, berarti ga aman
+    // Mengecek apakah terdapat worm pemain di arah d
     private boolean isMyWormInShootingRange(Direction d) {
         MyWorm currentWorm = getCurrentWorm(gameState);
         // direction N(0, -1), NE(1, -1), E(1, 0), SE(1, 1), S(0, 1), SW(-1, 1), W(-1,0), NW(-1, -1)
@@ -482,28 +467,28 @@ public class Bot {
         while ((i < myWorms.length) && (!found)) {
             int weaponRange = currentWorm.weapon.range;
             if(myWorms[i].id != currentWorm.id && myWorms[i].health > 0){
-                if ((d.name() == "N") && (between(myWorms[i].position.y, currentWorm.position.y - weaponRange, currentWorm.position.y) && currentWorm.position.x == myWorms[i].position.x)) {
+                if ((d.name().equals("N")) && (between(myWorms[i].position.y, currentWorm.position.y - weaponRange, currentWorm.position.y) && currentWorm.position.x == myWorms[i].position.x)) {
                     found = true;
                 }
-                else if ((d.name() == "E") && (between(myWorms[i].position.x, currentWorm.position.x + weaponRange, currentWorm.position.x) && currentWorm.position.y == myWorms[i].position.y)) {
+                else if ((d.name().equals("E")) && (between(myWorms[i].position.x, currentWorm.position.x + weaponRange, currentWorm.position.x) && currentWorm.position.y == myWorms[i].position.y)) {
                     found = true;
                 }
-                else if ((d.name() == "S") && (between(myWorms[i].position.y, currentWorm.position.y + weaponRange, currentWorm.position.y) && currentWorm.position.x == myWorms[i].position.x)) {
+                else if ((d.name().equals("S")) && (between(myWorms[i].position.y, currentWorm.position.y + weaponRange, currentWorm.position.y) && currentWorm.position.x == myWorms[i].position.x)) {
                     found = true;
                 }
-                else if ((d.name() == "W") && (between(myWorms[i].position.x, currentWorm.position.x - weaponRange, currentWorm.position.x) && currentWorm.position.y == myWorms[i].position.y)) {
+                else if ((d.name().equals("W")) && (between(myWorms[i].position.x, currentWorm.position.x - weaponRange, currentWorm.position.x) && currentWorm.position.y == myWorms[i].position.y)) {
                     found = true;
                 }
-                else if ((d.name() == "NE") && (between(myWorms[i].position.x, currentWorm.position.x + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
+                else if ((d.name().equals("NE")) && (between(myWorms[i].position.x, currentWorm.position.x + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
                     found = true;
                 }
-                else if ((d.name() == "SE") && (between(myWorms[i].position.x, currentWorm.position.x + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
+                else if ((d.name().equals("SE")) && (between(myWorms[i].position.x, currentWorm.position.x + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
                     found = true;
                 }
-                else if ((d.name() == "SW") && (between(myWorms[i].position.x, currentWorm.position.x - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
+                else if ((d.name().equals("SW")) && (between(myWorms[i].position.x, currentWorm.position.x - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y + (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
                     found = true;
                 }
-                else if ((d.name() == "NW") && (between(myWorms[i].position.x, currentWorm.position.x - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
+                else if ((d.name().equals("NW")) && (between(myWorms[i].position.x, currentWorm.position.x - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.x) && between(myWorms[i].position.y, currentWorm.position.y - (int) (weaponRange/Math.sqrt(2)), currentWorm.position.y) && isDiagonal(currentWorm, myWorms[i]))) {
                     found = true;
                 }
 
@@ -513,10 +498,12 @@ public class Bot {
         return found;
     }
 
+//    Mengecek apakah worm 1 dan worm 2 diagonal
     private boolean isDiagonal(Worm worm1, Worm worm2){
         return Math.abs(worm1.position.x - worm2.position.x) == Math.abs(worm1.position.y - worm2.position.y);
     }
 
+//    Mencari cell di sekitar currentWorm yang kosong
     private Cell searchEmptySurrounding(){
         List <Cell> blocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
         for (Cell block : blocks){

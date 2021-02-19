@@ -10,9 +10,8 @@ Untuk menjalankan program, dibutuhkan beberapa requirement yaitu:
 ## Cara menggunakan program
 (Masih belom fix tergantung struktur folder pengumpulan)
 1. Unzip folder Tubes1_13519040.zip
-2. Buka terminal dan pergi ke directory folder Tubes1_13519040
-3. Pindahkan folder tersebut ke dalam folder starter-pack/starter-bots
-4. Untuk menjalankan permainan dengan menggunakan bot kami, ubah isi file game-runner-config.json pada folder starter-pack menjadi seperti berikut:
+2. Copy folder Tubes1_13519040 yang berada di dalam folder src ke dalam folder starter-bots dari starter-pack yang telah Anda download
+3. Untuk menjalankan permainan dengan menggunakan bot kami, ubah isi file game-runner-config.json pada folder starter-pack menjadi seperti berikut:
 ```
 {
   "round-state-output-location": "./match-logs",
@@ -35,15 +34,14 @@ Untuk menjalankan program, dibutuhkan beberapa requirement yaitu:
 }
 
 ```
-5. Buka terminal dan pergi ke directory starter-pack 
-6. Ketik `make run` pada terminal
+5. Buka terminal dan pergi ke directory starter-pack
+6. Ketik `make run` pada terminal jika Anda menggunakan Mac OS/Linux atau klik dua kali run.bat jika Anda menggunakan Windows untuk menjalankan permainan
 
 ## Cara menggunakan visualizer
-(Gaperlu gapapa sih)
 Visualizer hanya dapat digunakan di Windows. Langkah-langkahnya adalah sebagai berikut:
 1. Unduh visualizer melalui https://github.com/dlweatherhead/entelect-challenge-2019-visualiser/releases/tag/v1.0f1
 2. Pindahkan folder hasil running permainan yang ingin divisualisasikan dari starter-pack/match-logs ke folder EC2019 Final v1.0f1/Matches
-3. Jalankan file entelect-visualizer.exe yang berada di dalam folder EC2019 Final v1.0f1
+3. Jalankan file entelect-visualizer.exe yang berada di dalam folder EC2019 Final v1.0f1 dan pilih match yang ingin Anda lihat visualisasinya
 ## Identitas Pembuat
 Kelompok Bot.java
 - 13519040 Shafira Naya Aprisadianti

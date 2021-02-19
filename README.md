@@ -1,14 +1,12 @@
 # Tugas Besar 1 IF2211 Strategi Algoritma Kelompok bot.java
 ## Penjelasan singkat algoritma greedy yang diimplementasikan
 Algoritma greedy adalah suatu algoritma yang memecahkan suatu persoalan langkah demi langkah dengan memilih pilihan terbaik di setiap langkahnya dengan harapan pilihan terbaik tersebut akan memberikan solusi akhir yang terbaik. Pada bot ini, strategi algoritma greedy diimplementasikan dengan cara memilih command yang akan memaksimumkan damage yang diterima lawan dan meminimumkan damage yang diterima pemain.
-(MUNGKIN BISA TAMBAHIN LAGI)
 ## Requirement program
 Untuk menjalankan program, dibutuhkan beberapa requirement yaitu:
 - Java (minimal Java 8), dapat diunduh melalui https://www.oracle.com/java/technologies/javase/javasejdk8-downloads.html
 - IntelliJ IDEA, dapat diunduh melalui https://www.jetbrains.com/idea/
 - NodeJS, dapat diunduh melalui https://nodejs.org/en/download/
 ## Cara menggunakan program
-(Masih belom fix tergantung struktur folder pengumpulan)
 1. Unzip folder Tubes1_13519040.zip
 2. Copy folder Tubes1_13519040 yang berada di dalam folder src ke dalam folder starter-bots dari starter-pack yang telah Anda download
 3. Untuk menjalankan permainan dengan menggunakan bot kami, ubah isi file game-runner-config.json pada folder starter-pack menjadi seperti berikut:

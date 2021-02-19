@@ -1,4 +1,4 @@
-# Tubes1-Stima-Worms
+# Tugas Besar 1 IF2211 Strategi Algoritma Kelompok bot.java
 ## Penjelasan singkat algoritma greedy yang diimplementasikan
 Algoritma greedy adalah suatu algoritma yang memecahkan suatu persoalan langkah demi langkah dengan memilih pilihan terbaik di setiap langkahnya dengan harapan pilihan terbaik tersebut akan memberikan solusi akhir yang terbaik. Pada bot ini, strategi algoritma greedy diimplementasikan dengan cara memilih command yang akan memaksimumkan damage yang diterima lawan dan meminimumkan damage yang diterima pemain.
 (MUNGKIN BISA TAMBAHIN LAGI)

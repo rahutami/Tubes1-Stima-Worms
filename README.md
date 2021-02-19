@@ -1,6 +1,9 @@
 # Tugas Besar 1 IF2211 Strategi Algoritma Kelompok bot.java
 ## Penjelasan singkat algoritma greedy yang diimplementasikan
-Algoritma greedy adalah suatu algoritma yang memecahkan suatu persoalan langkah demi langkah dengan memilih pilihan terbaik di setiap langkahnya dengan harapan pilihan terbaik tersebut akan memberikan solusi akhir yang terbaik. Pada bot ini, strategi algoritma greedy diimplementasikan dengan cara memilih command yang akan memaksimumkan damage yang diterima lawan dan meminimumkan damage yang diterima pemain.
+Algoritma greedy adalah suatu algoritma yang memecahkan suatu persoalan langkah demi langkah dengan memilih pilihan terbaik di setiap langkahnya dengan harapan pilihan terbaik tersebut akan memberikan solusi akhir yang terbaik. Pada bot ini, strategi algoritma greedy diimplementasikan dengan cara memilih command yang akan memaksimumkan damage yang diterima lawan dan meminimumkan damage yang diterima pemain. Hal ini dilakukan dengan memberikan prioritas command kepada worm-worm milik pemain. Prioritas command-nya adalah:
+1. Menyerang worm musuh apabila ada worm musuh yang berada di dalam jangkauan
+2. Berjalan menuju health pack apabila masih ada health pack di peta
+3. Berjalan menuju worm musuh jika tidak ada worm musuh yang berada di dalam jangkauan dan sudah tidak ada lagi health pack di peta
 ## Requirement program
 Untuk menjalankan program, dibutuhkan beberapa requirement yaitu:
 - Java (minimal Java 8), dapat diunduh melalui https://www.oracle.com/java/technologies/javase/javasejdk8-downloads.html
